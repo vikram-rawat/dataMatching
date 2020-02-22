@@ -3,10 +3,12 @@
 library(data.table)
 library(magrittr)
 library(DBI)
-library(odbc)
 library(stringi)
 library(readr)
 library(ggplot2)
+library(inspectdf)
+library(plotluck)
+library(dm)
 
 # set defaults ------------------------------------------------------------
 
@@ -15,16 +17,16 @@ theme_set(theme_bw())
 
 # setup Connections -------------------------------------------------------
 
-sqlserver <- dbConnect(odbc(),
-                       dsn = "vestige_sqlserver",
-                       uid = "devreadonlyuser",
-                       pwd = "D3^U$Er")
+# sqlserver <- dbConnect(odbc::odbc(),
+#                        dsn = "vestige_sqlserver",
+#                        uid = "devreadonlyuser",
+#                        pwd = "D3^U$Er")
 
 # dbListTables(sqlserver)
 # dbDisconnect(sqlserver)
 
-vertica <- dbConnect(odbc(),
-                     dsn = "vestige_vertica",
+all_cargo_vertica <- dbConnect(odbc::odbc(),
+                     dsn = "all_cargo_vertica",
                      uid = "dbadmin",
                      pwd = "data123")
 
