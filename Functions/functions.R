@@ -43,6 +43,7 @@ compareSQL <- function(verticaSQL,
       )
     )
   }
+
   setkey(Daas, verticaKeys)
   setkey(Vest, sqlServerKeys)
   

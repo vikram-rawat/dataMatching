@@ -1,6 +1,6 @@
 select 
-  Product_CategoryName,
-  count(DISTINCT Promotion_Id)
+  Product_CategoryName as product_category,
+  count(DISTINCT Promotion_Id) as counts
 from 
   fact_promotions_vestige fpv
 where 

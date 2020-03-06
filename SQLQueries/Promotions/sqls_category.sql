@@ -1,6 +1,6 @@
 select 
-  displaycategoryName,
-  Count(distinct promotionid) as Numbers
+  displaycategoryName as product_category,
+  Count(distinct promotionid) as counts
 from 
   ciheader(nolock)ci
 inner join 

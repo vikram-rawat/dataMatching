@@ -16,10 +16,10 @@ theme_set(theme_bw())
 
 # setup Connections -------------------------------------------------------
 
-# sqlserver <- dbConnect(odbc::odbc(),
-#                        dsn = "vestige_sqlserver",
-#                        uid = "devreadonlyuser",
-#                        pwd = "D3^U$Er")
+sqlserver <- dbConnect(odbc::odbc(),
+                       dsn = "vestige_sqlserver",
+                       uid = "devreadonlyuser",
+                       pwd = "D3^U$Er")
 
 # dbListTables(sqlserver)
 # dbDisconnect(sqlserver)
@@ -44,9 +44,11 @@ source("Functions/functions.R")
 
 data <- compareSQL(
   verticaSQL =  "SQLQueries/Promotions/vert_category.sql",
-  SQLserverSQL = "SQLQueries/Promotions/sqls_subcategory.sql",
+  SQLserverSQL = "SQLQueries/Promotions/sqls_category.sql",
   QueryParams = list(
     minDateValue = "2020-02-05 00:00:00",
     maxDateValue = "2020-02-05 23:59:59"
-  )
+  ),
+  verticaKeys = "product_category",
+  sqlServerKeys = "product_category" 
 )
