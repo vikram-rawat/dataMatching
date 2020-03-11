@@ -39,10 +39,7 @@ source("Functions/functions.R")
 
 # compare Queries ---------------------------------------------------------
 
-## Need Connection and libraries to run this code
-# source("Rscripts/DistributorCount.R")
-
-data <- compareSQL(
+compData <- compareSQL(
   SQLConn1 = sqlserver,
   SQLConn2 = vertica,
   SQLQuery1 = "SQLQueries/Promotions/sqls_category.sql",
@@ -52,5 +49,5 @@ data <- compareSQL(
     maxDateValue = "2020-02-05 23:59:59"
   ),
   Data1Keys = "product_category",
-  Data2Keys = "product_category" 
+  Data2Keys = "product_category"
 )
