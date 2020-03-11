@@ -9,3 +9,6 @@ where
   Invoice_Date <= ?maxDate
 group by 
   Product_CategoryName
+order by
+  counts 
+	desc

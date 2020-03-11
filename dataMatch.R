@@ -45,9 +45,22 @@ compData <- compareSQL(
   SQLQuery1 = "SQLQueries/Promotions/sqls_category.sql",
   SQLQuery2 = "SQLQueries/Promotions/vert_category.sql",
   QueryParams = list(
-    minDateValue = "2020-02-05 00:00:00",
-    maxDateValue = "2020-02-05 23:59:59"
+    minDate = "2020-03-01 00:00:00",
+    maxDate = "2020-03-12 23:59:59"
   ),
   Data1Keys = "product_category",
   Data2Keys = "product_category"
+)
+
+compData$vertica
+compData$sqlserver
+
+getDataSQL(
+  SQLConn =  sqlserver,
+  SQLQuery = "SQLQueries/Promotions/sqls_category.sql",
+  Keys = "product_category",
+  QueryParams = list(
+    minDate = "2020-02-05 00:00:00",
+    maxDate = "2020-02-05 23:59:59"
+  )
 )

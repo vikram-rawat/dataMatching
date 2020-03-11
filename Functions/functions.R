@@ -1,3 +1,27 @@
+# func getDataSQL --------------------------------------------------------------
+
+getDataSQL <- function(SQLConn,
+                       SQLQuery,
+                       Keys = NULL,
+                       QueryParams) {
+  # set Variables ------------------------------------------------------------
+  SQLQueryConverted <-
+    sqlInterpolate(SQLConn,
+                   read_file(SQLQuery),
+                   .dots = QueryParams)
+  
+  # get Data ----------------------------------------------------------------
+  
+  
+  SQLData <- dbGetQuery(SQLConn, SQLQueryConverted)
+  
+  setDT(SQLData, key = Keys)
+  
+  # transformation ----------------------------------------------------------
+  
+  return(SQLData)
+}
+
 # compareSQL --------------------------------------------------------------
 
 compareSQL <- function(SQLConn1,
@@ -6,52 +30,42 @@ compareSQL <- function(SQLConn1,
                        SQLQuery2,
                        QueryParams,
                        Data1Keys = NULL,
-                       Data2Keys = NULL
-                       ){
-  # setVariables ------------------------------------------------------------
-  
-  SQLQueryConverted1 <-
-    sqlInterpolate(SQLConn1,
-                   read_file(SQLQuery1),
-                   minDate = QueryParams$minDateValue,
-                   maxDate = QueryParams$maxDateValue)
-  
-  SQLQueryConverted2 <-
-    sqlInterpolate(SQLConn2,
-                   read_file(SQLQuery2),
-                   minDate = QueryParams$minDateValue,
-                   maxDate = QueryParams$maxDateValue)
-
+                       Data2Keys = NULL) {
   # createNames -------------------------------------------------------------
-
+  
   name1 <- paste0(substitute(SQLConn1))
   name2 <- paste0(substitute(SQLConn2))
   
   # get Data ----------------------------------------------------------------
   
+  SQLData1 <- getDataSQL(
+    SQLConn =  SQLConn1,
+    SQLQuery = SQLQuery1,
+    Keys = Data1Keys,
+    QueryParams = QueryParams 
+  )
   
-  SQLData1 <- dbGetQuery(SQLConn1, SQLQueryConverted1)
-  SQLData2 <- dbGetQuery(SQLConn2, SQLQueryConverted2)
-  
-  setDT(SQLData1,key = Data1Keys)
-  setDT(SQLData2,key = Data2Keys)
+  SQLData2 <- getDataSQL(
+    SQLConn =  SQLConn2,
+    SQLQuery = SQLQuery2,
+    Keys = Data2Keys,
+    QueryParams = QueryParams 
+  )
   
   # transformation ----------------------------------------------------------
   ## Check Condition
-  if(
-    is.null(Data1Keys)
-  ){
-    
+  if (is.null(Data1Keys)) {
     returnList <- list()
     
     returnList[[name1]] <- SQLData1
     returnList[[name2]] <- SQLData2
     
-    return(
-        returnList
-    )
+    return(returnList)
   }
-
+  
+  setDT(SQLData1, key = Data1Keys)
+  setDT(SQLData2, key = Data2Keys)
+  
   # analysis ----------------------------------------------------------------
   
   if (isTRUE(all.equal(SQLData1, SQLData2))) {
@@ -93,7 +107,5 @@ compareSQL <- function(SQLConn1,
   returnList[[name1]] <- SQLData1
   returnList[[name2]] <- SQLData2
   
-  return(
-    returnList
-  )
+  return(returnList)
 }
