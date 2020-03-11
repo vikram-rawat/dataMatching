@@ -1,55 +1,60 @@
 # compareSQL --------------------------------------------------------------
 
-compareSQL <- function(verticaSQL,
-                       SQLserverSQL,
+compareSQL <- function(SQLConn1,
+                       SQLConn2,
+                       SQLQuery1,
+                       SQLQuery2,
                        QueryParams,
-                       verticaKeys = NULL,
-                       sqlServerKeys = NULL
+                       Data1Keys = NULL,
+                       Data2Keys = NULL
                        ){
   # setVariables ------------------------------------------------------------
   
-  vertica_Query <-
-    sqlInterpolate(vertica,
-                   read_file(verticaSQL),
+  SQLQueryConverted1 <-
+    sqlInterpolate(SQLConn1,
+                   read_file(SQLQuery1),
                    minDate = QueryParams$minDateValue,
                    maxDate = QueryParams$maxDateValue)
   
-  sqlserver_Query <-
-    sqlInterpolate(sqlserver,
-                   read_file(SQLserverSQL),
+  SQLQueryConverted2 <-
+    sqlInterpolate(SQLConn2,
+                   read_file(SQLQuery2),
                    minDate = QueryParams$minDateValue,
                    maxDate = QueryParams$maxDateValue)
+
+  # createNames -------------------------------------------------------------
+
+  name1 <- paste0(substitute(SQLConn1))
+  name2 <- paste0(substitute(SQLConn2))
   
   # get Data ----------------------------------------------------------------
   
-  Vest <- dbGetQuery(sqlserver,
-                     sqlserver_Query)
   
-  Daas <- dbGetQuery(vertica,
-                     vertica_Query)
+  SQLData1 <- dbGetQuery(SQLConn1, SQLQueryConverted1)
+  SQLData2 <- dbGetQuery(SQLConn2, SQLQueryConverted2)
   
-  setDT(Vest)
-  setDT(Daas)
+  setDT(SQLData1,key = Data1Keys)
+  setDT(SQLData2,key = Data2Keys)
   
   # transformation ----------------------------------------------------------
   ## Check Condition
   if(
-    is.null(verticaKeys)
+    is.null(Data1Keys)
   ){
+    
+    returnList <- list()
+    
+    returnList[[name1]] <- SQLData1
+    returnList[[name2]] <- SQLData2
+    
     return(
-      list(
-        vertica = Daas,
-        SQLserverSQL = Vest
-      )
+        returnList
     )
   }
 
-  setkey(Daas, verticaKeys)
-  setkey(Vest, sqlServerKeys)
-  
   # analysis ----------------------------------------------------------------
   
-  if (isTRUE(all.equal(Vest, Daas))) {
+  if (isTRUE(all.equal(SQLData1, SQLData2))) {
     cat("+++++++++++\n")
     cat("Vestige and Daas Data are equal")
     cat("+++++++++++\n")
@@ -57,36 +62,38 @@ compareSQL <- function(verticaSQL,
     
   } else {
     cat("+++++++++++\n")
-    cat("RightJoin Vest\n")
+    cat("RightJoin SecondConnection\n")
     cat("+++++++++++\n")
-    print(Daas[Vest])
+    print(SQLData1[SQLData2])
     cat("+++++++++++\n\n")
     
     
     cat("+++++++++++\n")
-    cat("RightJoin Daas\n")
+    cat("RightJoin FirstConnection\n")
     cat("+++++++++++\n")
-    print(Vest[Daas])
+    print(SQLData2[SQLData1])
     cat("+++++++++++\n\n")
     
     cat("+++++++++++\n")
-    cat("Not in Vest But in Daas\n")
+    cat("Not in Second But in First\n")
     cat("+++++++++++\n")
-    print(Daas[!Vest])
+    print(SQLData1[!SQLData2])
     cat("+++++++++++\n\n")
     
     cat("+++++++++++\n")
-    cat("Not in Daas But in Vest\n")
+    cat("Not in First But in Second\n")
     cat("+++++++++++\n")
-    print(Vest[!Daas])
+    print(SQLData2[!SQLData1])
     cat("+++++++++++\n\n")
     
   }
   
+  returnList <- list()
+  
+  returnList[[name1]] <- SQLData1
+  returnList[[name2]] <- SQLData2
+  
   return(
-    list(
-      vertica = Daas,
-      SQLserverSQL = Vest
-    )
+    returnList
   )
 }
