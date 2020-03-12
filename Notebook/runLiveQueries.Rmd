@@ -1,0 +1,45 @@
+---
+title: "Data Match"
+output: html_notebook
+---
+```{r setup}
+sqlserver <- dbConnect(odbc::odbc(),
+                       dsn = "vestige_sqlserver",
+                       uid = "devreadonlyuser",
+                       pwd = "D3^U$Er")
+
+# dbListTables(sqlserver)
+# dbDisconnect(sqlserver)
+
+vertica <- dbConnect(odbc::odbc(),
+                     dsn = "vestige_vertica",
+                     uid = "dbadmin",
+                     pwd = "data123")
+
+# dbListTables(vertica)
+# dbDisconnect(vertica)
+
+
+```
+
+
+```{sql sqlserver, connection=sqlserver}
+
+select 
+  top 10 
+  * 
+from
+  CIHeader
+
+```
+
+```{sql vertica, connection=vertica}
+
+select
+  * 
+from 
+  dim_promotions_vestige 
+limit 10
+
+```
+

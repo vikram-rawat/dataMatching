@@ -58,7 +58,7 @@ compData$sqlserver
 getDataSQL(
   SQLConn =  sqlserver,
   SQLQuery = "SQLQueries/Promotions/sqls_category.sql",
-  Keys = "product_category",
+  # Keys = "product_category",
   QueryParams = list(
     minDate = "2020-02-05 00:00:00",
     maxDate = "2020-02-05 23:59:59"
