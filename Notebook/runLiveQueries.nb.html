@@ -1751,51 +1751,18 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIGxvYWQgbGlicmFyaWVzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxubGlicmFyeShcImRhdGEudGFibGVcIilcbmxpYnJhcnkoXCJkcGx5clwiKVxubGlicmFyeShcIm1hZ3JpdHRyXCIpXG5saWJyYXJ5KFwiREJJXCIpXG5saWJyYXJ5KFwib2RiY1wiKVxubGlicmFyeShcInN0cmluZ2lcIilcbmxpYnJhcnkoXCJyZWFkclwiKVxubGlicmFyeShcImdncGxvdDJcIilcbmxpYnJhcnkoXCJwbG90bHVja1wiKVxuXG4jIHNldCBkZWZhdWx0cyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxuc2V0RFR0aHJlYWRzKDBMKVxudGhlbWVfc2V0KHRoZW1lX2J3KCkpXG5cbiMgc2V0dXAgQ29ubmVjdGlvbnMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuXG5zcWxzZXJ2ZXIgPC0gZGJDb25uZWN0KG9kYmM6Om9kYmMoKSxcbiAgICAgICAgICAgICAgICAgICAgICAgZHNuID0gXCJ2ZXN0aWdlX3NxbHNlcnZlclwiLFxuICAgICAgICAgICAgICAgICAgICAgICB1aWQgPSBcImRldnJlYWRvbmx5dXNlclwiLFxuICAgICAgICAgICAgICAgICAgICAgICBwd2QgPSBcIkQzXlUkRXJcIilcblxuIyBkYkxpc3RUYWJsZXMoc3Fsc2VydmVyKVxuIyBkYkRpc2Nvbm5lY3Qoc3Fsc2VydmVyKVxuXG52ZXJ0aWNhIDwtIGRiQ29ubmVjdChvZGJjOjpvZGJjKCksXG4gICAgICAgICAgICAgICAgICAgICBkc24gPSBcInZlc3RpZ2VfdmVydGljYVwiLFxuICAgICAgICAgICAgICAgICAgICAgdWlkID0gXCJkYmFkbWluXCIsXG4gICAgICAgICAgICAgICAgICAgICBwd2QgPSBcImRhdGExMjNcIilcblxuIyBkYkxpc3RUYWJsZXModmVydGljYSlcbiMgZGJEaXNjb25uZWN0KHZlcnRpY2EpXG5cbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIGxvYWQgbGlicmFyaWVzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxubGlicmFyeShcImRhdGEudGFibGVcIilcbmBgYCJ9 -->
 <pre class="r"><code>
 # load libraries ----------------------------------------------------------
 
-library(&quot;data.table&quot;)
-library(&quot;dplyr&quot;)
-library(&quot;magrittr&quot;)
-library(&quot;DBI&quot;)
-library(&quot;odbc&quot;)
-library(&quot;stringi&quot;)
-library(&quot;readr&quot;)
-library(&quot;ggplot2&quot;)
-library(&quot;plotluck&quot;)
-
-# set defaults ------------------------------------------------------------
-
-setDTthreads(0L)
-theme_set(theme_bw())
-
-# setup Connections -------------------------------------------------------
-
-sqlserver &lt;- dbConnect(odbc::odbc(),
-                       dsn = &quot;vestige_sqlserver&quot;,
-                       uid = &quot;devreadonlyuser&quot;,
-                       pwd = &quot;D3^U$Er&quot;)
-
-# dbListTables(sqlserver)
-# dbDisconnect(sqlserver)
-
-vertica &lt;- dbConnect(odbc::odbc(),
-                     dsn = &quot;vestige_vertica&quot;,
-                     uid = &quot;dbadmin&quot;,
-                     pwd = &quot;data123&quot;)
-
-# dbListTables(vertica)
-# dbDisconnect(vertica)
-</code></pre>
+library(&quot;data.table&quot;)</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA2XG5cbnNlbGVjdFxuXHRpZm51bGwoQnJhbmROYW1lICwnT3RoZXJzJykgYXMgQnJhbmQsXG5cdHN1bShEaXNjb3VudCAqUXVhbnRpdHkpIGFzIEFtb3VudFxuZnJvbSAgXG5cdGZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHBcbndoZXJlIFxuXHREYXRlS2V5IGJldHdlZW4gMjAxOTA5MTIgYW5kIDIwMjAwMzExXG5cdGFuZCBwLkNvdW50cnlJZCA9MVxuZ3JvdXAgYnkgXG5cdEJyYW5kIFxub3JkZXIgYnkgXG5cdEFtb3VudCBkZXNjO1xuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA2XG5zZWxlY3Rcblx0aWZudWxsKEJyYW5kTmFtZSAsJ090aGVycycpIGFzIEJyYW5kLFxuXHRzdW0oRGlzY291bnQgKlF1YW50aXR5KSBhcyBBbW91bnRcbmZyb20gIFxuXHRmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwXG53aGVyZSBcblx0RGF0ZUtleSBiZXR3ZWVuIDIwMTkwOTEyIGFuZCAyMDIwMDMxMVxuXHRhbmQgcC5Db3VudHJ5SWQgPTFcbmdyb3VwIGJ5IFxuXHRCcmFuZCBcbm9yZGVyIGJ5IFxuXHRBbW91bnQgZGVzYztcbmBgYCJ9 -->
 <pre class="sql"><code>-- graph 6
-
 select
     ifnull(BrandName ,&#39;Others&#39;) as Brand,
     sum(Discount *Quantity) as Amount
@@ -1813,29 +1780,91 @@ order by
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA1XG5cbnNlbGVjdFxuXHRpZm51bGwoU3ViQ2F0ZWdvcnlOYW1lICwnT3RoZXJzJykgYXMgU3ViX0NhdGVnb3J5LFxuXHRzdW0oRGlzY291bnQqUXVhbnRpdHkgKSBhcyBBbW91bnRcbmZyb20gIFxuXHRmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwXG53aGVyZSBcblx0RGF0ZUtleSBiZXR3ZWVuIDIwMTkwOTEyIGFuZCAyMDIwMDMxMVxuXHRhbmQgXG5cdHAuQ291bnRyeUlkID0xXG5ncm91cCBieVxuXHRTdWJfQ2F0ZWdvcnkgXG5vcmRlciBieSBcblx0QW1vdW50IGRlc2NcbmxpbWl0IDEwO1xuYGBgIn0= -->
-<pre class="sql"><code>-- graph 5
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA2XG5cbnNlbGVjdCBcbiAgRGlzcGxheVN1YkNhdGVnb3J5TmFtZSwgXG4gIFN1bShjaWQuRGlzY291bnQpRGlzY291bnRBbW91bnRcbkZST00gXG4gIFtDSUhlYWRlcl0gYXMgY2loIFxuSU5ORVIgSk9JTiBcbiAgW0NJRGV0YWlsXSBhcyBjaWRcbiAgb24gXG4gIGNpZC5JbnZvaWNlTm8gPSBjaWguSW52b2ljZU5vXG5pbm5lciBqb2luIFxuICBpdGVtX21hc3Rlcihub2xvY2spaW0gXG4gIG9uIFxuICBpbS5pdGVtaWQgPSBjaWQuaXRlbWlkXG53aGVyZSBcbiAgaXNwcm9tbz0xXG4gIGFuZFxuICB2b3VjaGVyc3Jubz0nJyBcbiAgYW5kIFxuICBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPj0gJzIwMjAtMDMtMDEnIFxuICBhbmQgXG4gIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA8ICcyMDIwLTAzLTEyJ1xuR3JvdXAgYnlcbiAgRGlzcGxheVN1YkNhdGVnb3J5TmFtZSBcbm9yZGVyIGJ5IFxuICBEaXNjb3VudEFtb3VudCBkZXNjIFxuYGBgIn0= -->
+<pre class="sql"><code>-- graph 6
 
-select
-    ifnull(SubCategoryName ,&#39;Others&#39;) as Sub_Category,
-    sum(Discount*Quantity ) as Amount
-from  
-    fact_promotions_vestige p
+select 
+  DisplaySubCategoryName, 
+  Sum(cid.Discount)DiscountAmount
+FROM 
+  [CIHeader] as cih 
+INNER JOIN 
+  [CIDetail] as cid
+  on 
+  cid.InvoiceNo = cih.InvoiceNo
+inner join 
+  item_master(nolock)im 
+  on 
+  im.itemid = cid.itemid
 where 
-    DateKey between 20190912 and 20200311
-    and 
-    p.CountryId =1
-group by
-    Sub_Category 
+  ispromo=1
+  and
+  vouchersrno=&#39;&#39; 
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) &gt;= &#39;2020-03-01&#39; 
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) &lt; &#39;2020-03-12&#39;
+Group by
+  DisplaySubCategoryName 
 order by 
-    Amount desc
-limit 10;</code></pre>
+  DiscountAmount desc </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA0XG5cbnNlbGVjdFxuXHRpZm51bGwoUHJvZHVjdF9DYXRlZ29yeU5hbWUgLCdPdGhlcnMnKSBhcyBDYXRlZ29yeSxcblx0c3VtKERpc2NvdW50ICogUXVhbnRpdHkgKSBhcyBBbW91bnRcbmZyb20gXG5cdGZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHBcbndoZXJlIFxuXHREYXRlS2V5IGJldHdlZW4gMjAxOTA5MTIgYW5kIDIwMjAwMzExXG5cdGFuZCBcblx0cC5Db3VudHJ5SWQgPTFcbmdyb3VwIGJ5IFxuXHRQcm9kdWN0X0NhdGVnb3J5TmFtZVxub3JkZXIgYnkgXG5cdEFtb3VudCBkZXNjO1xuYGBgIn0= -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA1XG5zZWxlY3RcbiAgaWZudWxsKFN1YkNhdGVnb3J5TmFtZSAsJ090aGVycycpIGFzIFN1Yl9DYXRlZ29yeSxcbiAgc3VtKERpc2NvdW50KlF1YW50aXR5ICkgYXMgQW1vdW50XG5mcm9tICBcbiAgZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcFxud2hlcmUgXG4gIERhdGVLZXkgYmV0d2VlbiAyMDE5MDkxMiBhbmQgMjAyMDAzMTFcbiAgYW5kXG4gIHAuQ291bnRyeUlkID0xXG5ncm91cCBieSBcbiAgU3ViX0NhdGVnb3J5IFxub3JkZXIgYnlcbiAgQW1vdW50IGRlc2NcbmxpbWl0IDEwO1xuXG5gYGAifQ== -->
+<pre class="sql"><code>-- graph 5
+select
+  ifnull(SubCategoryName ,&#39;Others&#39;) as Sub_Category,
+  sum(Discount*Quantity ) as Amount
+from  
+  fact_promotions_vestige p
+where 
+  DateKey between 20190912 and 20200311
+  and
+  p.CountryId =1
+group by 
+  Sub_Category 
+order by
+  Amount desc
+limit 10;
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6W10sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJtQTJKV0lKT0J6VG5BME1qVWlJR0JoUW5JWTJSZ1llQUUwUlZBVmNKQUJraFFBSWk1b0JLY1R2a3BsUXJPaVVXcFVBRXVsOVM4a3NUaTRsSzRDQU9VWm9sS0xVbUVzUjNUaXpLaGJGR3YvTXk4a21JRk5RV24vTHpVWWdXUDFNU2NrZ3lZK2NIWm1Ybkk1dk41NXVhVzVtV1dWQUpWNXhlWHdKUjVKR1lXSVN0ajg4d3J5MHpQQjJrQU9jcnhaTzlGa1BNZDF5cnYxQURSRXhSZXM0QnB0Z1UzUUhTdjhtWUxFTjNTUGU4QWlHNHF2MThCb2h0ZXZUWUEwZWs5WUs4NHVtNlNaNEQ0Q1RsNFdQTVNjMU9Mb1VIREJCWGtDUzVOaW5kT0xFbE56eStxaERuTE1UZS9OSzhFWFh0eURqREVvTnBoZ2x3cGlTV0plbWxGUUpQUmxITVc1WmZyd1d6a0JkbllBQ1QrLy8vL0RVajlBMkVBdFBBazU5c0JBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Sub_Category"],"name":[1],"type":["chr"],"align":["left"]},{"label":["Amount"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Body Care","2":"857448998"},{"1":"Dentassure","2":"244440212"},{"1":"","2":"67648193"},{"1":"Zeta","2":"67217462"},{"1":"Agri","2":"61109863"},{"1":"Joints & Bones Health","2":"43086808"},{"1":"Skin Care","2":"38730735"},{"1":"Immunity Boost","2":"35478886"},{"1":"Hair Care","2":"12345416"},{"1":"Invigo","2":"2843710"}],"options":{"columns":{"min":{},"max":[10],"total":{}},"rows":{"min":[10],"max":[10],"total":{}},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA1XG5cbnNlbGVjdCBEaXNwbGF5U3ViQ2F0ZWdvcnlOYW1lLCBTdW0oY2lkLkRpc2NvdW50KURpc2NvdW50QW1vdW50XG5GUk9NIFtDSUhlYWRlcl0gYXMgY2loIFxuSU5ORVIgSk9JTiBbQ0lEZXRhaWxdIGFzIGNpZCBvbiBjaWQuSW52b2ljZU5vID0gY2loLkludm9pY2VOb1xuaW5uZXIgam9pbiBpdGVtX21hc3Rlcihub2xvY2spaW0gb24gaW0uaXRlbWlkID0gY2lkLml0ZW1pZFxud2hlcmUgaXNwcm9tbz0xIGFuZCB2b3VjaGVyc3Jubz0nJyBhbmQgXG5jb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPj0gJzIwMjAtMDMtMDEnIGFuZCBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPCAnMjAyMC0wMy0xMidcbkdyb3VwIGJ5IERpc3BsYXlTdWJDYXRlZ29yeU5hbWUgb3JkZXIgYnkgRGlzY291bnRBbW91bnQgZGVzYyBcbmBgYCJ9 -->
+<pre class="sql"><code>-- graph 5
+
+select DisplaySubCategoryName, Sum(cid.Discount)DiscountAmount
+FROM [CIHeader] as cih 
+INNER JOIN [CIDetail] as cid on cid.InvoiceNo = cih.InvoiceNo
+inner join item_master(nolock)im on im.itemid = cid.itemid
+where ispromo=1 and vouchersrno=&#39;&#39; and 
+convert(varchar, cih.[InvoiceDate], 23) &gt;= &#39;2020-03-01&#39; and convert(varchar, cih.[InvoiceDate], 23) &lt; &#39;2020-03-12&#39;
+Group by DisplaySubCategoryName order by DiscountAmount desc </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-frame-begin eyJtZXRhZGF0YSI6W10sInJkZiI6Ikg0c0lBQUFBQUFBQUJndHlpVERtaXVCaVlHQmdabUJtQTJKV0lKT0J6VG5BME1qVWlJR0JoUW5JWTJSZ1llQUUwUlZBVmNKQUJraFFBSXdoRWx3dXFYa2xpY1hGcFVXcFVCR1dxTlNTUkNpYnp6TTN0elF2czZSU3dTay92N2dFS3NycGtaaFpwT0NjaU5EaW1GNlVDWk1NenM3TVE1Wms4NmdzUzBYb2RjcFBxVVRSNjVOWlVBeGp1eVVtdzhWZEsxT0xRUnIrQXdGVWpOVXZNVE1IcHBnM0RHaHFabnFxUWtCUlppNU1GNTlUYVhGbVhtcHhzVUpJZmo1Y3FhaFhmbVplU2JHQ0d0QWJRRWtGajlURW5KSU1rSEpRU0RnV1JzMFVFNmw2NkpnVjhiTUJLT0RvMDM4TEZKS09Mc21WbDQyTmpSMGR6cDRFODAzKzhCcUQrRXJIT01COE1lbVVOQ0J3K0sveEFNUjMrSEt1QVV4LzFGNEFwbDlPZ2REbnJrREVONG96Z09tdURBWlVnQkpWckhtSnVXQ2ZDNENqQ3lJbzVwSlpYSkNUV0JsY211U2NXSkthbmw5VTZaZUk4RFZRTmptL05LL0VNUmRFb2h1WW5BT01ZS2lCTUVHdWxNU1NSTDIwSXBBaHFNbzVpL0xMOVdCdTRBVzVBZVI2WUNSOEFGTC9RQmdBV1lXWTZIa0NBQUE9In0= -->
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["DisplaySubCategoryName"],"name":[1],"type":["chr"],"align":["left"]},{"label":["DiscountAmount"],"name":[2],"type":["dbl"],"align":["right"]}],"data":[{"1":"Dentassure","2":"18196881.4"},{"1":"Zeta","2":"13813708.0"},{"1":"Immunity Boost","2":"3743668.0"},{"1":"Hair Care","2":"2672371.6"},{"1":"Agri","2":"2202514.0"},{"1":"Skin Care","2":"1375245.2"},{"1":"Hyvest","2":"615172.0"},{"1":"Body Care","2":"362201.1"},{"1":"Lips","2":"127630.0"},{"1":"Face","2":"85224.0"},{"1":"Eyes","2":"70330.0"},{"1":"NA","2":"52389.0"},{"1":"Nails","2":"15785.0"},{"1":"Vestige Prime","2":"4375.0"},{"1":"Business Tools","2":"845.0"},{"1":"Joints & Bones Health","2":"0.0"}],"options":{"columns":{"min":{},"max":[10],"total":{}},"rows":{"min":[10],"max":[10],"total":{}},"pages":{}}}
+  </script>
+</div>
+<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA0XG5cbnNlbGVjdFxuXHRpZm51bGwoUHJvZHVjdF9DYXRlZ29yeU5hbWUgLCdPdGhlcnMnKSBhcyBDYXRlZ29yeSxcblx0c3VtKERpc2NvdW50ICogUXVhbnRpdHkgKSBhcyBBbW91bnRcbmZyb20gXG5cdGZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHBcbndoZXJlIFxuXHREYXRlS2V5IGJldHdlZW4gMjAyMDAzMDEgYW5kIDIwMjAwMzExXG5cdGFuZCBcblx0cC5Db3VudHJ5SWQgPTFcbmdyb3VwIGJ5IFxuXHRQcm9kdWN0X0NhdGVnb3J5TmFtZVxub3JkZXIgYnkgXG5cdEFtb3VudCBkZXNjO1xuXG5gYGAifQ== -->
 <pre class="sql"><code>-- graph 4
 
 select
@@ -1844,23 +1873,41 @@ select
 from 
     fact_promotions_vestige p
 where 
-    DateKey between 20190912 and 20200311
+    DateKey between 20200301 and 20200311
     and 
     p.CountryId =1
 group by 
     Product_CategoryName
 order by 
-    Amount desc;</code></pre>
+    Amount desc;
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCAzXG4vKlxuc2VsZWN0XG5cdGlmbnVsbChJdGVtTmFtZSAsJ090aGVycycpIGFzIFByb2R1Y3QsXG5cdHN1bShEaXNjb3VudCpRdWFudGl0eSApIGFzIEFtb3VudFxuZnJvbSAgXG5cdGZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHBcbndoZXJlIFxuXHREYXRlS2V5IGJldHdlZW4gMjAyMDAzMDEgYW5kIDIwMjAwMzEyXG5cdGFuZCBcblx0cC5Db3VudHJ5SWQgPTFcbmdyb3VwIGJ5IFxuXHRJdGVtTmFtZSBcbm9yZGVyIGJ5IFxuXHRBbW91bnQgZGVzY1xubGltaXRcbiAgMjA7XG4qL1xuXG5zZWxlY3Rcblx0SXRlbV9JZCBhcyBQcm9kdWN0LFxuXHRzdW0oRGlzY291bnQqUXVhbnRpdHkgKSBhcyBBbW91bnRcbmZyb20gIFxuXHRmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwXG53aGVyZSBcblx0RGF0ZUtleSBiZXR3ZWVuIDIwMjAwMzAxIGFuZCAyMDIwMDMxMlxuXHRhbmQgXG5cdHAuQ291bnRyeUlkID0xXG5ncm91cCBieSBcblx0SXRlbV9JZCBcbm9yZGVyIGJ5IFxuXHRBbW91bnQgZGVzY1xubGltaXRcbiAgMjA7XG5cbmBgYCJ9 -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG5cbnNlbGVjdCBcbiAgRGlzcGxheUNhdGVnb3J5TmFtZSwgXG4gIFN1bShjaWQuRGlzY291bnQpRGlzY291bnRBbW91bnRcbkZST00gW0NJSGVhZGVyXSBhcyBjaWggXG5JTk5FUiBKT0lOIFtDSURldGFpbF0gYXMgY2lkIG9uIGNpZC5JbnZvaWNlTm8gPSBjaWguSW52b2ljZU5vXG5pbm5lciBqb2luIGl0ZW1fbWFzdGVyKG5vbG9jaylpbSBvbiBpbS5pdGVtaWQgPSBjaWQuaXRlbWlkXG53aGVyZSBpc3Byb21vPTEgYW5kIHZvdWNoZXJzcm5vPScnIGFuZCBcbmNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA+PSAnMjAyMC0wMy0wMScgYW5kIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA8ICcyMDIwLTAzLTEyJ1xuR3JvdXAgYnkgRGlzcGxheUNhdGVnb3J5TmFtZSBvcmRlciBieSBEaXNjb3VudEFtb3VudCBkZXNjIFxuYGBgIn0= -->
+<pre class="sql"><code>
+select 
+  DisplayCategoryName, 
+  Sum(cid.Discount)DiscountAmount
+FROM [CIHeader] as cih 
+INNER JOIN [CIDetail] as cid on cid.InvoiceNo = cih.InvoiceNo
+inner join item_master(nolock)im on im.itemid = cid.itemid
+where ispromo=1 and vouchersrno=&#39;&#39; and 
+convert(varchar, cih.[InvoiceDate], 23) &gt;= &#39;2020-03-01&#39; and convert(varchar, cih.[InvoiceDate], 23) &lt; &#39;2020-03-12&#39;
+Group by DisplayCategoryName order by DiscountAmount desc </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCAzXG5cbi8qXG5zZWxlY3Rcblx0aWZudWxsKCBJdGVtTmFtZSAsJ090aGVycycpIGFzIFByb2R1Y3QsXG5cdHN1bShEaXNjb3VudCpRdWFudGl0eSApIGFzIEFtb3VudFxuZnJvbSAgXG5cdGZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHBcbndoZXJlIFxuXHREYXRlS2V5IGJldHdlZW4gMjAyMDAzMDEgYW5kIDIwMjAwMzEyXG5cdGFuZCBcblx0cC5Db3VudHJ5SWQgPTFcbmdyb3VwIGJ5IFxuXHRJdGVtTmFtZSBcbm9yZGVyIGJ5IFxuXHRBbW91bnQgZGVzY1xubGltaXRcbiAgMjA7XG4qL1xuXG5zZWxlY3Rcblx0SXRlbV9JZCBhcyBQcm9kdWN0LFxuXHRzdW0oRGlzY291bnQqUXVhbnRpdHkgKSBhcyBBbW91bnRcbmZyb20gIFxuXHRmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwXG53aGVyZSBcblx0RGF0ZUtleSBiZXR3ZWVuIDIwMjAwMzAxIGFuZCAyMDIwMDMxMlxuXHRhbmQgXG5cdHAuQ291bnRyeUlkID0xXG5ncm91cCBieSBcblx0SXRlbV9JZCBcbm9yZGVyIGJ5IFxuXHRBbW91bnQgZGVzY1xubGltaXRcbiAgMjA7XG5cbmBgYCJ9 -->
 <pre class="sql"><code>-- graph 3
+
 /*
 select
-    ifnull(ItemName ,&#39;Others&#39;) as Product,
+    ifnull( ItemName ,&#39;Others&#39;) as Product,
     sum(Discount*Quantity ) as Amount
 from  
     fact_promotions_vestige p
@@ -1897,9 +1944,60 @@ limit
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG5cbnNlbGVjdCBcbiAgdG9wIDIwXG4gIGltLkRpc3BsYXlDYXRlZ29yeU5hbWUsIFxuICBDb3VudChkaXN0aW5jdCBjaWRkLlByb21vdGlvbklkKSBhcyBjb3VudHNcbkZST00gXG4gIFtDSURldGFpbERpc2NvdW50XSBjaWRkIHdpdGgobm9sb2NrKVxuSU5ORVIgSk9JTiBcbiAgW0NJSGVhZGVyXSBhcyBjaWggXG4gIG9uIFxuICBjaWguSW52b2ljZU5vID0gY2lkZC5JbnZvaWNlTm9cbklOTkVSIEpPSU4gXG4gIFtDSURldGFpbF0gYXMgY2lkIFxuICBvblxuICBjaWQuSW52b2ljZU5vID0gY2loLkludm9pY2VOb1xuSU5ORVIgSk9JTiBcbiAgUHJvbW90aW9uX01hc3RlciBwbSB3aXRoIChub2xvY2spIFxuICBvbiBcbiAgY2lkZC5Qcm9tb3Rpb25JZCA9IGNhc3QocG0uUHJvbW90aW9uSWQgYXMgdmFyY2hhcigxMCkgKVxuSW5uZXIgSm9pbiBcbiAgSXRlbV9tYXN0ZXIobm9sb2NrKSBpbVxuICBvbiBcbiAgaW0uaXRlbWlkID0gY2lkLml0ZW1pZFxuICBhbmQgXG4gIGNpZGQuUHJvbW90aW9uSWQgIT0nbnVsbCdcbndoZXJlIFxuICBpc3Byb21vPTEgXG4gIGFuZFxuICBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPj0gJzIwMjAtMDMtMDEnXG4gIGFuZCBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPCAnMjAyMC0wMy0xMidcbkdyb3VwIGJ5IFxuICBpbS5EaXNwbGF5Q2F0ZWdvcnlOYW1lXG5vcmRlciBieVxuICBjb3VudHMgZGVzYztcbiAgXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG5cbnNlbGVjdCBcbiAgdG9wIDIwXG4gIEl0ZW1OYW1lLCBcbiAgU3VtKGNpZC5EaXNjb3VudClEaXNjb3VudFxuRlJPTSBcbiAgW0NJSGVhZGVyXSBhcyBjaWggXG5JTk5FUiBKT0lOIFxuICBbQ0lEZXRhaWxdIGFzIGNpZCBcbiAgb24gXG4gIGNpZC5JbnZvaWNlTm8gPSBjaWguSW52b2ljZU5vXG53aGVyZSBcbiAgaXNwcm9tbz0xIFxuICBhbmQgXG4gIHZvdWNoZXJzcm5vPScnIC0tLSBFeGNsdWRpbmcgdGhpcyB3aWxsIGdpdmUgdXMgYWxsIHRoZSBkaXNjb3VudCBhbW91bnQgd2l0aCBjb3Vwb24gUHJvbW90aW9uXG4gIGFuZCBcbiAgY29udmVydCh2YXJjaGFyLCBjaWguW0ludm9pY2VEYXRlXSwgMjMpID49ICcyMDIwLTAzLTAxJyBcbiAgYW5kIFxuICBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPCAnMjAyMC0wMy0xMidcbkdyb3VwIGJ5IFxuICBJdGVtTmFtZSBcbm9yZGVyIGJ5IFxuICBEaXNjb3VudCBkZXNjIFxuYGBgIn0= -->
 <pre class="sql"><code>
 select 
+  top 20
+  ItemName, 
+  Sum(cid.Discount)Discount
+FROM 
+  [CIHeader] as cih 
+INNER JOIN 
+  [CIDetail] as cid 
+  on 
+  cid.InvoiceNo = cih.InvoiceNo
+where 
+  ispromo=1 
+  and 
+  vouchersrno=&#39;&#39; --- Excluding this will give us all the discount amount with coupon Promotion
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) &gt;= &#39;2020-03-01&#39; 
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) &lt; &#39;2020-03-12&#39;
+Group by 
+  ItemName 
+order by 
+  Discount desc </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCAyXG5cbnNlbGVjdFxuXHRBZ2VCdWNrZXQgIGFzIEFnZUJ1Y2tldCxcblx0Y291bnQoRElTVElOQ1QgIFByb21vdGlvbl9JZCApIGFzIG5vT2ZQcm9tb3Rpb25zXG5mcm9tICBcblx0ZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcFxud2hlcmUgXG5cdERhdGVLZXkgYmV0d2VlbiAyMDE5MDkxMiBhbmQgMjAyMDAzMTFcblx0YW5kIFxuXHRwLkNvdW50cnlJZCA9IDFcbmdyb3VwIGJ5IFxuXHRBZ2VCdWNrZXQgXG5vcmRlciBieSBcblx0bm9PZlByb21vdGlvbnMgZGVzYztcblx0XG5gYGAifQ== -->
+<pre class="sql"><code>-- graph 2
+
+select
+    AgeBucket  as AgeBucket,
+    count(DISTINCT  Promotion_Id ) as noOfPromotions
+from  
+    fact_promotions_vestige p
+where 
+    DateKey between 20190912 and 20200311
+    and 
+    p.CountryId = 1
+group by 
+    AgeBucket 
+order by 
+    noOfPromotions desc;
+    </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG5cbnNlbGVjdFxuICB0b3AgMjBcbiAgaW0uRGlzcGxheUNhdGVnb3J5TmFtZSwgXG4gIENvdW50KGRpc3RpbmN0IGNpZGQuUHJvbW90aW9uSWQpIGFzIGNvdW50c1xuRlJPTSBcbiAgW0NJRGV0YWlsRGlzY291bnRdIGNpZGQgd2l0aChub2xvY2spXG5JTk5FUiBKT0lOIFxuICBbQ0lIZWFkZXJdIGFzIGNpaCBcbiAgb24gXG4gIGNpaC5JbnZvaWNlTm8gPSBjaWRkLkludm9pY2VOb1xuSU5ORVIgSk9JTiBcbiAgW0NJRGV0YWlsXSBhcyBjaWQgXG4gIG9uXG4gIGNpZC5JbnZvaWNlTm8gPSBjaWguSW52b2ljZU5vXG5JTk5FUiBKT0lOIFxuICBQcm9tb3Rpb25fTWFzdGVyIHBtIHdpdGggKG5vbG9jaykgXG4gIG9uIFxuICBjaWRkLlByb21vdGlvbklkID0gY2FzdChwbS5Qcm9tb3Rpb25JZCBhcyB2YXJjaGFyKDEwKSApXG5Jbm5lciBKb2luIFxuICBJdGVtX21hc3Rlcihub2xvY2spIGltXG4gIG9uIFxuICBpbS5pdGVtaWQgPSBjaWQuaXRlbWlkXG4gIGFuZCBcbiAgY2lkZC5Qcm9tb3Rpb25JZCAhPSdudWxsJ1xud2hlcmUgXG4gIGlzcHJvbW89MSBcbiAgYW5kXG4gIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA+PSAnMjAyMC0wMy0wMSdcbiAgYW5kIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA8ICcyMDIwLTAzLTEyJ1xuR3JvdXAgYnkgXG4gIGltLkRpc3BsYXlDYXRlZ29yeU5hbWVcbm9yZGVyIGJ5XG4gIGNvdW50cyBkZXNjO1xuXG5gYGAifQ== -->
+<pre class="sql"><code>
+select
   top 20
   im.DisplayCategoryName, 
   Count(distinct cidd.PromotionId) as counts
@@ -1932,29 +2030,7 @@ Group by
   im.DisplayCategoryName
 order by
   counts desc;
-  </code></pre>
-<!-- rnb-source-end -->
-<!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
-<!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCAyXG5cbnNlbGVjdFxuXHRBZ2VCdWNrZXQgIGFzIEFnZUJ1Y2tldCxcblx0Y291bnQoRElTVElOQ1QgIFByb21vdGlvbl9JZCApIGFzIG5vT2ZQcm9tb3Rpb25zXG5mcm9tICBcblx0ZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcFxud2hlcmUgXG5cdERhdGVLZXkgYmV0d2VlbiAyMDE5MDkxMiBhbmQgMjAyMDAzMTFcblx0YW5kIFxuXHRwLkNvdW50cnlJZCA9IDFcbmdyb3VwIGJ5IFxuXHRBZ2VCdWNrZXQgXG5vcmRlciBieSBcblx0bm9PZlByb21vdGlvbnMgZGVzYztcblx0XG5gYGAifQ== -->
-<pre class="sql"><code>-- graph 2
-
-select
-    AgeBucket  as AgeBucket,
-    count(DISTINCT  Promotion_Id ) as noOfPromotions
-from  
-    fact_promotions_vestige p
-where 
-    DateKey between 20190912 and 20200311
-    and 
-    p.CountryId = 1
-group by 
-    AgeBucket 
-order by 
-    noOfPromotions desc;
-    </code></pre>
+</code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
@@ -2041,10 +2117,8 @@ vertica %&gt;%
 </code></pre>
 <!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
-<!-- rnb-text-begin -->
-<!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGEgTWF0Y2giDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBzZXR1cH0NCg0KIyBsb2FkIGxpYnJhcmllcyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCmxpYnJhcnkoImRhdGEudGFibGUiKQ0KbGlicmFyeSgiZHBseXIiKQ0KbGlicmFyeSgibWFncml0dHIiKQ0KbGlicmFyeSgiREJJIikNCmxpYnJhcnkoIm9kYmMiKQ0KbGlicmFyeSgic3RyaW5naSIpDQpsaWJyYXJ5KCJyZWFkciIpDQpsaWJyYXJ5KCJnZ3Bsb3QyIikNCmxpYnJhcnkoInBsb3RsdWNrIikNCg0KIyBzZXQgZGVmYXVsdHMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCnNldERUdGhyZWFkcygwTCkNCnRoZW1lX3NldCh0aGVtZV9idygpKQ0KDQojIHNldHVwIENvbm5lY3Rpb25zIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCg0Kc3Fsc2VydmVyIDwtIGRiQ29ubmVjdChvZGJjOjpvZGJjKCksDQogICAgICAgICAgICAgICAgICAgICAgIGRzbiA9ICJ2ZXN0aWdlX3NxbHNlcnZlciIsDQogICAgICAgICAgICAgICAgICAgICAgIHVpZCA9ICJkZXZyZWFkb25seXVzZXIiLA0KICAgICAgICAgICAgICAgICAgICAgICBwd2QgPSAiRDNeVSRFciIpDQoNCiMgZGJMaXN0VGFibGVzKHNxbHNlcnZlcikNCiMgZGJEaXNjb25uZWN0KHNxbHNlcnZlcikNCg0KdmVydGljYSA8LSBkYkNvbm5lY3Qob2RiYzo6b2RiYygpLA0KICAgICAgICAgICAgICAgICAgICAgZHNuID0gInZlc3RpZ2VfdmVydGljYSIsDQogICAgICAgICAgICAgICAgICAgICB1aWQgPSAiZGJhZG1pbiIsDQogICAgICAgICAgICAgICAgICAgICBwd2QgPSAiZGF0YTEyMyIpDQoNCiMgZGJMaXN0VGFibGVzKHZlcnRpY2EpDQojIGRiRGlzY29ubmVjdCh2ZXJ0aWNhKQ0KDQpgYGANCg0KYGBge3NxbCB2ZXJ0aWNhX2dyYXBoNiwgY29ubmVjdGlvbj12ZXJ0aWNhfQ0KLS0gZ3JhcGggNg0KDQpzZWxlY3QNCglpZm51bGwoQnJhbmROYW1lICwnT3RoZXJzJykgYXMgQnJhbmQsDQoJc3VtKERpc2NvdW50ICpRdWFudGl0eSkgYXMgQW1vdW50DQpmcm9tICANCglmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwDQp3aGVyZSANCglEYXRlS2V5IGJldHdlZW4gMjAxOTA5MTIgYW5kIDIwMjAwMzExDQoJYW5kIHAuQ291bnRyeUlkID0xDQpncm91cCBieSANCglCcmFuZCANCm9yZGVyIGJ5IA0KCUFtb3VudCBkZXNjOw0KYGBgDQoNCmBgYHtzcWwgdmVydGljYV9ncmFwaDUsIGNvbm5lY3Rpb249dmVydGljYX0NCi0tIGdyYXBoIDUNCg0Kc2VsZWN0DQoJaWZudWxsKFN1YkNhdGVnb3J5TmFtZSAsJ090aGVycycpIGFzIFN1Yl9DYXRlZ29yeSwNCglzdW0oRGlzY291bnQqUXVhbnRpdHkgKSBhcyBBbW91bnQNCmZyb20gIA0KCWZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHANCndoZXJlIA0KCURhdGVLZXkgYmV0d2VlbiAyMDE5MDkxMiBhbmQgMjAyMDAzMTENCglhbmQgDQoJcC5Db3VudHJ5SWQgPTENCmdyb3VwIGJ5DQoJU3ViX0NhdGVnb3J5IA0Kb3JkZXIgYnkgDQoJQW1vdW50IGRlc2MNCmxpbWl0IDEwOw0KYGBgDQoNCmBgYHtzcWwgdmVydGljYV9ncmFwaDQsIGNvbm5lY3Rpb249dmVydGljYX0NCi0tIGdyYXBoIDQNCg0Kc2VsZWN0DQoJaWZudWxsKFByb2R1Y3RfQ2F0ZWdvcnlOYW1lICwnT3RoZXJzJykgYXMgQ2F0ZWdvcnksDQoJc3VtKERpc2NvdW50ICogUXVhbnRpdHkgKSBhcyBBbW91bnQNCmZyb20gDQoJZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcA0Kd2hlcmUgDQoJRGF0ZUtleSBiZXR3ZWVuIDIwMTkwOTEyIGFuZCAyMDIwMDMxMQ0KCWFuZCANCglwLkNvdW50cnlJZCA9MQ0KZ3JvdXAgYnkgDQoJUHJvZHVjdF9DYXRlZ29yeU5hbWUNCm9yZGVyIGJ5IA0KCUFtb3VudCBkZXNjOw0KYGBgDQoNCmBgYHtzcWwgdmVydGljYV9ncmFwaDMsIGNvbm5lY3Rpb249dmVydGljYX0NCi0tIGdyYXBoIDMNCi8qDQpzZWxlY3QNCglpZm51bGwoSXRlbU5hbWUgLCdPdGhlcnMnKSBhcyBQcm9kdWN0LA0KCXN1bShEaXNjb3VudCpRdWFudGl0eSApIGFzIEFtb3VudA0KZnJvbSAgDQoJZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcA0Kd2hlcmUgDQoJRGF0ZUtleSBiZXR3ZWVuIDIwMjAwMzAxIGFuZCAyMDIwMDMxMg0KCWFuZCANCglwLkNvdW50cnlJZCA9MQ0KZ3JvdXAgYnkgDQoJSXRlbU5hbWUgDQpvcmRlciBieSANCglBbW91bnQgZGVzYw0KbGltaXQNCiAgMjA7DQoqLw0KDQpzZWxlY3QNCglJdGVtX0lkIGFzIFByb2R1Y3QsDQoJc3VtKERpc2NvdW50KlF1YW50aXR5ICkgYXMgQW1vdW50DQpmcm9tICANCglmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwDQp3aGVyZSANCglEYXRlS2V5IGJldHdlZW4gMjAyMDAzMDEgYW5kIDIwMjAwMzEyDQoJYW5kIA0KCXAuQ291bnRyeUlkID0xDQpncm91cCBieSANCglJdGVtX0lkIA0Kb3JkZXIgYnkgDQoJQW1vdW50IGRlc2MNCmxpbWl0DQogIDIwOw0KDQpgYGANCg0KYGBge3NxbCBTcWxTZXJ2ZXJfZ3JhcGgzLCBjb25uZWN0aW9uPXNxbHNlcnZlcn0NCg0Kc2VsZWN0IA0KICB0b3AgMjANCiAgaW0uRGlzcGxheUNhdGVnb3J5TmFtZSwgDQogIENvdW50KGRpc3RpbmN0IGNpZGQuUHJvbW90aW9uSWQpIGFzIGNvdW50cw0KRlJPTSANCiAgW0NJRGV0YWlsRGlzY291bnRdIGNpZGQgd2l0aChub2xvY2spDQpJTk5FUiBKT0lOIA0KICBbQ0lIZWFkZXJdIGFzIGNpaCANCiAgb24gDQogIGNpaC5JbnZvaWNlTm8gPSBjaWRkLkludm9pY2VObw0KSU5ORVIgSk9JTiANCiAgW0NJRGV0YWlsXSBhcyBjaWQgDQogIG9uDQogIGNpZC5JbnZvaWNlTm8gPSBjaWguSW52b2ljZU5vDQpJTk5FUiBKT0lOIA0KICBQcm9tb3Rpb25fTWFzdGVyIHBtIHdpdGggKG5vbG9jaykgDQogIG9uIA0KICBjaWRkLlByb21vdGlvbklkID0gY2FzdChwbS5Qcm9tb3Rpb25JZCBhcyB2YXJjaGFyKDEwKSApDQpJbm5lciBKb2luIA0KICBJdGVtX21hc3Rlcihub2xvY2spIGltDQogIG9uIA0KICBpbS5pdGVtaWQgPSBjaWQuaXRlbWlkDQogIGFuZCANCiAgY2lkZC5Qcm9tb3Rpb25JZCAhPSdudWxsJw0Kd2hlcmUgDQogIGlzcHJvbW89MSANCiAgYW5kDQogIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA+PSAnMjAyMC0wMy0wMScNCiAgYW5kIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA8ICcyMDIwLTAzLTEyJw0KR3JvdXAgYnkgDQogIGltLkRpc3BsYXlDYXRlZ29yeU5hbWUNCm9yZGVyIGJ5DQogIGNvdW50cyBkZXNjOw0KICANCmBgYA0KDQpgYGB7c3FsIHZlcnRpY2FfZ3JhcGgyLCBjb25uZWN0aW9uPXZlcnRpY2F9DQotLSBncmFwaCAyDQoNCnNlbGVjdA0KCUFnZUJ1Y2tldCAgYXMgQWdlQnVja2V0LA0KCWNvdW50KERJU1RJTkNUICBQcm9tb3Rpb25fSWQgKSBhcyBub09mUHJvbW90aW9ucw0KZnJvbSAgDQoJZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcA0Kd2hlcmUgDQoJRGF0ZUtleSBiZXR3ZWVuIDIwMTkwOTEyIGFuZCAyMDIwMDMxMQ0KCWFuZCANCglwLkNvdW50cnlJZCA9IDENCmdyb3VwIGJ5IA0KCUFnZUJ1Y2tldCANCm9yZGVyIGJ5IA0KCW5vT2ZQcm9tb3Rpb25zIGRlc2M7DQoJDQpgYGANCg0KYGBge3NxbCB2ZXJ0aWNhX2dyYXBoMSwgY29ubmVjdGlvbj12ZXJ0aWNhfQ0Kc2VsZWN0DQoJaWZudWxsKFByb2R1Y3RfQ2F0ZWdvcnlOYW1lLCdPdGhlcnMnKSBhcyBDYXRlZ29yeSwNCgljb3VudChESVNUSU5DVCBQcm9tb3Rpb25fSWQgKSBhcyBQcm9tb3Rpb25fQ291bnQNCmZyb20gIA0KCWZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHANCndoZXJlIA0KCURhdGVLZXkgYmV0d2VlbiAyMDIwMDMwMSBhbmQgMjAyMDAzMTENCglhbmQgDQoJcC5Db3VudHJ5SWQgPTENCmdyb3VwIGJ5DQoJQ2F0ZWdvcnkNCm9yZGVyIGJ5DQoJUHJvbW90aW9uX0NvdW50IGRlc2M7DQoNCmBgYA0KDQpgYGB7c3FsIFNxbFNlcnZlcl9ncmFwaDEsIGNvbm5lY3Rpb249c3Fsc2VydmVyfQ0KDQpzZWxlY3QNCiAgdG9wIDIwDQogIGltLkRpc3BsYXlDYXRlZ29yeU5hbWUsIA0KICBDb3VudChkaXN0aW5jdCBjaWRkLlByb21vdGlvbklkKSBhcyBjb3VudHMNCkZST00gDQogIFtDSURldGFpbERpc2NvdW50XSBjaWRkIHdpdGgobm9sb2NrKQ0KSU5ORVIgSk9JTiANCiAgW0NJSGVhZGVyXSBhcyBjaWggDQogIG9uIA0KICBjaWguSW52b2ljZU5vID0gY2lkZC5JbnZvaWNlTm8NCklOTkVSIEpPSU4gDQogIFtDSURldGFpbF0gYXMgY2lkIA0KICBvbg0KICBjaWQuSW52b2ljZU5vID0gY2loLkludm9pY2VObw0KSU5ORVIgSk9JTiANCiAgUHJvbW90aW9uX01hc3RlciBwbSB3aXRoIChub2xvY2spIA0KICBvbiANCiAgY2lkZC5Qcm9tb3Rpb25JZCA9IGNhc3QocG0uUHJvbW90aW9uSWQgYXMgdmFyY2hhcigxMCkgKQ0KSW5uZXIgSm9pbiANCiAgSXRlbV9tYXN0ZXIobm9sb2NrKSBpbQ0KICBvbiANCiAgaW0uaXRlbWlkID0gY2lkLml0ZW1pZA0KICBhbmQgDQogIGNpZGQuUHJvbW90aW9uSWQgIT0nbnVsbCcNCndoZXJlIA0KICBpc3Byb21vPTEgDQogIGFuZA0KICBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPj0gJzIwMjAtMDMtMDEnDQogIGFuZCBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPCAnMjAyMC0wMy0xMicNCkdyb3VwIGJ5IA0KICBpbS5EaXNwbGF5Q2F0ZWdvcnlOYW1lDQpvcmRlciBieQ0KICBjb3VudHMgZGVzYzsNCg0KYGBgDQoNCmBgYHtyIGRwbHlyfQ0KDQp2ZXJ0aWNhICU+JSANCiAgZGJMaXN0VGFibGVzKCkgDQoNCg0KDQp2ZXJ0aWNhICU+JSANCiAgZGJMaXN0RmllbGRzKCJmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSIpDQogIA0KdmVydGljYSAlPiUgDQogIHRibCgiZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UiKSAlPiUgDQogIGZpbHRlciggRGF0ZUtleSA+PSAyMDE5MDkxMiApICU+JSANCiAgZ3JvdXBfYnkoUHJvZHVjdF9DYXRlZ29yeU5hbWUpICU+JQ0KICBzdW1tYXJpc2UoY291bnRzID0gbl9kaXN0aW5jdChQcm9kdWN0X0NhdGVnb3J5SWQpKSAlPiUgDQogIGFycmFuZ2UoZGVzYyhjb3VudHMpKQ0KICAjIHNlbGVjdChEYXRlS2V5KQ0KDQpgYGANCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGEgTWF0Y2giDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBzZXR1cH0NCiMgbG9hZCBsaWJyYXJpZXMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQpsaWJyYXJ5KCJkYXRhLnRhYmxlIikNCmxpYnJhcnkoImRwbHlyIikNCmxpYnJhcnkoIm1hZ3JpdHRyIikNCmxpYnJhcnkoIkRCSSIpDQpsaWJyYXJ5KCJvZGJjIikNCmxpYnJhcnkoInN0cmluZ2kiKQ0KbGlicmFyeSgicmVhZHIiKQ0KbGlicmFyeSgiZ2dwbG90MiIpDQpsaWJyYXJ5KCJwbG90bHVjayIpDQoNCiMgc2V0IGRlZmF1bHRzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KDQpzZXREVHRocmVhZHMoMEwpDQp0aGVtZV9zZXQodGhlbWVfYncoKSkNCg0KIyBzZXR1cCBDb25uZWN0aW9ucyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCnNxbHNlcnZlciA8LSBkYkNvbm5lY3Qob2RiYzo6b2RiYygpLA0KICAgICAgICAgICAgICAgICAgICAgICBkc24gPSAidmVzdGlnZV9zcWxzZXJ2ZXIiLA0KICAgICAgICAgICAgICAgICAgICAgICB1aWQgPSAiZGV2cmVhZG9ubHl1c2VyIiwNCiAgICAgICAgICAgICAgICAgICAgICAgcHdkID0gIkQzXlUkRXIiKQ0KDQojIGRiTGlzdFRhYmxlcyhzcWxzZXJ2ZXIpDQojIGRiRGlzY29ubmVjdChzcWxzZXJ2ZXIpDQoNCnZlcnRpY2EgPC0gZGJDb25uZWN0KG9kYmM6Om9kYmMoKSwNCiAgICAgICAgICAgICAgICAgICAgIGRzbiA9ICJ2ZXN0aWdlX3ZlcnRpY2EiLA0KICAgICAgICAgICAgICAgICAgICAgdWlkID0gImRiYWRtaW4iLA0KICAgICAgICAgICAgICAgICAgICAgcHdkID0gImRhdGExMjMiKQ0KDQojIGRiTGlzdFRhYmxlcyh2ZXJ0aWNhKQ0KIyBkYkRpc2Nvbm5lY3QodmVydGljYSkNCg0KYGBgDQoNCmBgYHtzcWwgdmVydGljYV9ncmFwaDYsIGNvbm5lY3Rpb249dmVydGljYX0NCi0tIGdyYXBoIDYNCnNlbGVjdA0KCWlmbnVsbChCcmFuZE5hbWUgLCdPdGhlcnMnKSBhcyBCcmFuZCwNCglzdW0oRGlzY291bnQgKlF1YW50aXR5KSBhcyBBbW91bnQNCmZyb20gIA0KCWZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHANCndoZXJlIA0KCURhdGVLZXkgYmV0d2VlbiAyMDE5MDkxMiBhbmQgMjAyMDAzMTENCglhbmQgcC5Db3VudHJ5SWQgPTENCmdyb3VwIGJ5IA0KCUJyYW5kIA0Kb3JkZXIgYnkgDQoJQW1vdW50IGRlc2M7DQpgYGANCg0KYGBge3NxbCBTcWxTZXJ2ZXJfZ3JhcGg2LCBjb25uZWN0aW9uPXNxbHNlcnZlcn0NCi0tIGdyYXBoIDYNCg0Kc2VsZWN0IA0KICBEaXNwbGF5U3ViQ2F0ZWdvcnlOYW1lLCANCiAgU3VtKGNpZC5EaXNjb3VudClEaXNjb3VudEFtb3VudA0KRlJPTSANCiAgW0NJSGVhZGVyXSBhcyBjaWggDQpJTk5FUiBKT0lOIA0KICBbQ0lEZXRhaWxdIGFzIGNpZA0KICBvbiANCiAgY2lkLkludm9pY2VObyA9IGNpaC5JbnZvaWNlTm8NCmlubmVyIGpvaW4gDQogIGl0ZW1fbWFzdGVyKG5vbG9jaylpbSANCiAgb24gDQogIGltLml0ZW1pZCA9IGNpZC5pdGVtaWQNCndoZXJlIA0KICBpc3Byb21vPTENCiAgYW5kDQogIHZvdWNoZXJzcm5vPScnIA0KICBhbmQgDQogIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA+PSAnMjAyMC0wMy0wMScgDQogIGFuZCANCiAgY29udmVydCh2YXJjaGFyLCBjaWguW0ludm9pY2VEYXRlXSwgMjMpIDwgJzIwMjAtMDMtMTInDQpHcm91cCBieQ0KICBEaXNwbGF5U3ViQ2F0ZWdvcnlOYW1lIA0Kb3JkZXIgYnkgDQogIERpc2NvdW50QW1vdW50IGRlc2MgDQpgYGANCg0KYGBge3NxbCB2ZXJ0aWNhX2dyYXBoNSwgY29ubmVjdGlvbj12ZXJ0aWNhfQ0KLS0gZ3JhcGggNQ0Kc2VsZWN0DQogIGlmbnVsbChTdWJDYXRlZ29yeU5hbWUgLCdPdGhlcnMnKSBhcyBTdWJfQ2F0ZWdvcnksDQogIHN1bShEaXNjb3VudCpRdWFudGl0eSApIGFzIEFtb3VudA0KZnJvbSAgDQogIGZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHANCndoZXJlIA0KICBEYXRlS2V5IGJldHdlZW4gMjAxOTA5MTIgYW5kIDIwMjAwMzExDQogIGFuZA0KICBwLkNvdW50cnlJZCA9MQ0KZ3JvdXAgYnkgDQogIFN1Yl9DYXRlZ29yeSANCm9yZGVyIGJ5DQogIEFtb3VudCBkZXNjDQpsaW1pdCAxMDsNCg0KYGBgDQoNCmBgYHtzcWwgU3FsU2VydmVyX2dyYXBoNSwgY29ubmVjdGlvbj1zcWxzZXJ2ZXJ9DQotLSBncmFwaCA1DQoNCnNlbGVjdCANCiAgRGlzcGxheVN1YkNhdGVnb3J5TmFtZSwgDQogIFN1bShjaWQuRGlzY291bnQpRGlzY291bnRBbW91bnQNCkZST00gDQogIFtDSUhlYWRlcl0gYXMgY2loIA0KSU5ORVIgSk9JTiANCiAgW0NJRGV0YWlsXSBhcyBjaWQNCiAgb24gDQogIGNpZC5JbnZvaWNlTm8gPSBjaWguSW52b2ljZU5vDQppbm5lciBqb2luIA0KICBpdGVtX21hc3Rlcihub2xvY2spaW0gDQogIG9uIA0KICBpbS5pdGVtaWQgPSBjaWQuaXRlbWlkDQp3aGVyZSANCiAgaXNwcm9tbz0xDQogIGFuZA0KICB2b3VjaGVyc3Jubz0nJyANCiAgYW5kIA0KICBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPj0gJzIwMjAtMDMtMDEnIA0KICBhbmQgDQogIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA8ICcyMDIwLTAzLTEyJw0KR3JvdXAgYnkNCiAgRGlzcGxheVN1YkNhdGVnb3J5TmFtZSANCm9yZGVyIGJ5IA0KICBEaXNjb3VudEFtb3VudCBkZXNjIA0KYGBgDQoNCmBgYHtzcWwgdmVydGljYV9ncmFwaDQsIGNvbm5lY3Rpb249dmVydGljYX0NCi0tIGdyYXBoIDQNCg0Kc2VsZWN0DQoJaWZudWxsKFByb2R1Y3RfQ2F0ZWdvcnlOYW1lICwnT3RoZXJzJykgYXMgQ2F0ZWdvcnksDQoJc3VtKERpc2NvdW50ICogUXVhbnRpdHkgKSBhcyBBbW91bnQNCmZyb20gDQoJZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcA0Kd2hlcmUgDQoJRGF0ZUtleSBiZXR3ZWVuIDIwMjAwMzAxIGFuZCAyMDIwMDMxMQ0KCWFuZCANCglwLkNvdW50cnlJZCA9MQ0KZ3JvdXAgYnkgDQoJUHJvZHVjdF9DYXRlZ29yeU5hbWUNCm9yZGVyIGJ5IA0KCUFtb3VudCBkZXNjOw0KDQpgYGANCg0KYGBge3NxbCBTcWxTZXJ2ZXJfZ3JhcGg0LCBjb25uZWN0aW9uPXNxbHNlcnZlcn0NCg0Kc2VsZWN0IA0KICBEaXNwbGF5Q2F0ZWdvcnlOYW1lLCANCiAgU3VtKGNpZC5EaXNjb3VudClEaXNjb3VudEFtb3VudA0KRlJPTSBbQ0lIZWFkZXJdIGFzIGNpaCANCklOTkVSIEpPSU4gW0NJRGV0YWlsXSBhcyBjaWQgb24gY2lkLkludm9pY2VObyA9IGNpaC5JbnZvaWNlTm8NCmlubmVyIGpvaW4gaXRlbV9tYXN0ZXIobm9sb2NrKWltIG9uIGltLml0ZW1pZCA9IGNpZC5pdGVtaWQNCndoZXJlIGlzcHJvbW89MSBhbmQgdm91Y2hlcnNybm89JycgYW5kIA0KY29udmVydCh2YXJjaGFyLCBjaWguW0ludm9pY2VEYXRlXSwgMjMpID49ICcyMDIwLTAzLTAxJyBhbmQgY29udmVydCh2YXJjaGFyLCBjaWguW0ludm9pY2VEYXRlXSwgMjMpIDwgJzIwMjAtMDMtMTInDQpHcm91cCBieSBEaXNwbGF5Q2F0ZWdvcnlOYW1lIG9yZGVyIGJ5IERpc2NvdW50QW1vdW50IGRlc2MgDQpgYGANCg0KYGBge3NxbCB2ZXJ0aWNhX2dyYXBoMywgY29ubmVjdGlvbj12ZXJ0aWNhfQ0KLS0gZ3JhcGggMw0KDQovKg0Kc2VsZWN0DQoJaWZudWxsKCBJdGVtTmFtZSAsJ090aGVycycpIGFzIFByb2R1Y3QsDQoJc3VtKERpc2NvdW50KlF1YW50aXR5ICkgYXMgQW1vdW50DQpmcm9tICANCglmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwDQp3aGVyZSANCglEYXRlS2V5IGJldHdlZW4gMjAyMDAzMDEgYW5kIDIwMjAwMzEyDQoJYW5kIA0KCXAuQ291bnRyeUlkID0xDQpncm91cCBieSANCglJdGVtTmFtZSANCm9yZGVyIGJ5IA0KCUFtb3VudCBkZXNjDQpsaW1pdA0KICAyMDsNCiovDQoNCnNlbGVjdA0KCUl0ZW1fSWQgYXMgUHJvZHVjdCwNCglzdW0oRGlzY291bnQqUXVhbnRpdHkgKSBhcyBBbW91bnQNCmZyb20gIA0KCWZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHANCndoZXJlIA0KCURhdGVLZXkgYmV0d2VlbiAyMDIwMDMwMSBhbmQgMjAyMDAzMTINCglhbmQgDQoJcC5Db3VudHJ5SWQgPTENCmdyb3VwIGJ5IA0KCUl0ZW1fSWQgDQpvcmRlciBieSANCglBbW91bnQgZGVzYw0KbGltaXQNCiAgMjA7DQoNCmBgYA0KDQpgYGB7c3FsIFNxbFNlcnZlcl9ncmFwaDMsIGNvbm5lY3Rpb249c3Fsc2VydmVyfQ0KDQpzZWxlY3QgDQogIHRvcCAyMA0KICBJdGVtTmFtZSwgDQogIFN1bShjaWQuRGlzY291bnQpRGlzY291bnQNCkZST00gDQogIFtDSUhlYWRlcl0gYXMgY2loIA0KSU5ORVIgSk9JTiANCiAgW0NJRGV0YWlsXSBhcyBjaWQgDQogIG9uIA0KICBjaWQuSW52b2ljZU5vID0gY2loLkludm9pY2VObw0Kd2hlcmUgDQogIGlzcHJvbW89MSANCiAgYW5kIA0KICB2b3VjaGVyc3Jubz0nJyAtLS0gRXhjbHVkaW5nIHRoaXMgd2lsbCBnaXZlIHVzIGFsbCB0aGUgZGlzY291bnQgYW1vdW50IHdpdGggY291cG9uIFByb21vdGlvbg0KICBhbmQgDQogIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA+PSAnMjAyMC0wMy0wMScgDQogIGFuZCANCiAgY29udmVydCh2YXJjaGFyLCBjaWguW0ludm9pY2VEYXRlXSwgMjMpIDwgJzIwMjAtMDMtMTInDQpHcm91cCBieSANCiAgSXRlbU5hbWUgDQpvcmRlciBieSANCiAgRGlzY291bnQgZGVzYyANCmBgYA0KDQpgYGB7c3FsIHZlcnRpY2FfZ3JhcGgyLCBjb25uZWN0aW9uPXZlcnRpY2F9DQotLSBncmFwaCAyDQoNCnNlbGVjdA0KCUFnZUJ1Y2tldCAgYXMgQWdlQnVja2V0LA0KCWNvdW50KERJU1RJTkNUICBQcm9tb3Rpb25fSWQgKSBhcyBub09mUHJvbW90aW9ucw0KZnJvbSAgDQoJZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcA0Kd2hlcmUgDQoJRGF0ZUtleSBiZXR3ZWVuIDIwMTkwOTEyIGFuZCAyMDIwMDMxMQ0KCWFuZCANCglwLkNvdW50cnlJZCA9IDENCmdyb3VwIGJ5IA0KCUFnZUJ1Y2tldCANCm9yZGVyIGJ5IA0KCW5vT2ZQcm9tb3Rpb25zIGRlc2M7DQoJDQpgYGANCg0KYGBge3NxbCBTcWxTZXJ2ZXJfZ3JhcGgyLCBjb25uZWN0aW9uPXNxbHNlcnZlcn0NCg0Kc2VsZWN0DQogIHRvcCAyMA0KICBpbS5EaXNwbGF5Q2F0ZWdvcnlOYW1lLCANCiAgQ291bnQoZGlzdGluY3QgY2lkZC5Qcm9tb3Rpb25JZCkgYXMgY291bnRzDQpGUk9NIA0KICBbQ0lEZXRhaWxEaXNjb3VudF0gY2lkZCB3aXRoKG5vbG9jaykNCklOTkVSIEpPSU4gDQogIFtDSUhlYWRlcl0gYXMgY2loIA0KICBvbiANCiAgY2loLkludm9pY2VObyA9IGNpZGQuSW52b2ljZU5vDQpJTk5FUiBKT0lOIA0KICBbQ0lEZXRhaWxdIGFzIGNpZCANCiAgb24NCiAgY2lkLkludm9pY2VObyA9IGNpaC5JbnZvaWNlTm8NCklOTkVSIEpPSU4gDQogIFByb21vdGlvbl9NYXN0ZXIgcG0gd2l0aCAobm9sb2NrKSANCiAgb24gDQogIGNpZGQuUHJvbW90aW9uSWQgPSBjYXN0KHBtLlByb21vdGlvbklkIGFzIHZhcmNoYXIoMTApICkNCklubmVyIEpvaW4gDQogIEl0ZW1fbWFzdGVyKG5vbG9jaykgaW0NCiAgb24gDQogIGltLml0ZW1pZCA9IGNpZC5pdGVtaWQNCiAgYW5kIA0KICBjaWRkLlByb21vdGlvbklkICE9J251bGwnDQp3aGVyZSANCiAgaXNwcm9tbz0xIA0KICBhbmQNCiAgY29udmVydCh2YXJjaGFyLCBjaWguW0ludm9pY2VEYXRlXSwgMjMpID49ICcyMDIwLTAzLTAxJw0KICBhbmQgY29udmVydCh2YXJjaGFyLCBjaWguW0ludm9pY2VEYXRlXSwgMjMpIDwgJzIwMjAtMDMtMTInDQpHcm91cCBieSANCiAgaW0uRGlzcGxheUNhdGVnb3J5TmFtZQ0Kb3JkZXIgYnkNCiAgY291bnRzIGRlc2M7DQoNCmBgYA0KDQpgYGB7c3FsIHZlcnRpY2FfZ3JhcGgxLCBjb25uZWN0aW9uPXZlcnRpY2F9DQpzZWxlY3QNCglpZm51bGwoUHJvZHVjdF9DYXRlZ29yeU5hbWUsJ090aGVycycpIGFzIENhdGVnb3J5LA0KCWNvdW50KERJU1RJTkNUIFByb21vdGlvbl9JZCApIGFzIFByb21vdGlvbl9Db3VudA0KZnJvbSAgDQoJZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcA0Kd2hlcmUgDQoJRGF0ZUtleSBiZXR3ZWVuIDIwMjAwMzAxIGFuZCAyMDIwMDMxMQ0KCWFuZCANCglwLkNvdW50cnlJZCA9MQ0KZ3JvdXAgYnkNCglDYXRlZ29yeQ0Kb3JkZXIgYnkNCglQcm9tb3Rpb25fQ291bnQgZGVzYzsNCg0KYGBgDQoNCmBgYHtzcWwgU3FsU2VydmVyX2dyYXBoMSwgY29ubmVjdGlvbj1zcWxzZXJ2ZXJ9DQoNCnNlbGVjdA0KICB0b3AgMjANCiAgaW0uRGlzcGxheUNhdGVnb3J5TmFtZSwgDQogIENvdW50KGRpc3RpbmN0IGNpZGQuUHJvbW90aW9uSWQpIGFzIGNvdW50cw0KRlJPTSANCiAgW0NJRGV0YWlsRGlzY291bnRdIGNpZGQgd2l0aChub2xvY2spDQpJTk5FUiBKT0lOIA0KICBbQ0lIZWFkZXJdIGFzIGNpaCANCiAgb24gDQogIGNpaC5JbnZvaWNlTm8gPSBjaWRkLkludm9pY2VObw0KSU5ORVIgSk9JTiANCiAgW0NJRGV0YWlsXSBhcyBjaWQgDQogIG9uDQogIGNpZC5JbnZvaWNlTm8gPSBjaWguSW52b2ljZU5vDQpJTk5FUiBKT0lOIA0KICBQcm9tb3Rpb25fTWFzdGVyIHBtIHdpdGggKG5vbG9jaykgDQogIG9uIA0KICBjaWRkLlByb21vdGlvbklkID0gY2FzdChwbS5Qcm9tb3Rpb25JZCBhcyB2YXJjaGFyKDEwKSApDQpJbm5lciBKb2luIA0KICBJdGVtX21hc3Rlcihub2xvY2spIGltDQogIG9uIA0KICBpbS5pdGVtaWQgPSBjaWQuaXRlbWlkDQogIGFuZCANCiAgY2lkZC5Qcm9tb3Rpb25JZCAhPSdudWxsJw0Kd2hlcmUgDQogIGlzcHJvbW89MSANCiAgYW5kDQogIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA+PSAnMjAyMC0wMy0wMScNCiAgYW5kIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA8ICcyMDIwLTAzLTEyJw0KR3JvdXAgYnkgDQogIGltLkRpc3BsYXlDYXRlZ29yeU5hbWUNCm9yZGVyIGJ5DQogIGNvdW50cyBkZXNjOw0KDQpgYGANCg0KYGBge3IgZHBseXJ9DQoNCnZlcnRpY2EgJT4lIA0KICBkYkxpc3RUYWJsZXMoKSANCg0KDQoNCnZlcnRpY2EgJT4lIA0KICBkYkxpc3RGaWVsZHMoImZhY3RfcHJvbW90aW9uc192ZXN0aWdlIikNCiAgDQp2ZXJ0aWNhICU+JSANCiAgdGJsKCJmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSIpICU+JSANCiAgZmlsdGVyKCBEYXRlS2V5ID49IDIwMTkwOTEyICkgJT4lIA0KICBncm91cF9ieShQcm9kdWN0X0NhdGVnb3J5TmFtZSkgJT4lDQogIHN1bW1hcmlzZShjb3VudHMgPSBuX2Rpc3RpbmN0KFByb2R1Y3RfQ2F0ZWdvcnlJZCkpICU+JSANCiAgYXJyYW5nZShkZXNjKGNvdW50cykpDQogICMgc2VsZWN0KERhdGVLZXkpDQoNCmBgYA0K</div>
 
 
 

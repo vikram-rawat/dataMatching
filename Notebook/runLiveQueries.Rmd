@@ -4,7 +4,6 @@ output: html_notebook
 ---
 
 ```{r setup}
-
 # load libraries ----------------------------------------------------------
 
 library("data.table")
@@ -44,7 +43,6 @@ vertica <- dbConnect(odbc::odbc(),
 
 ```{sql vertica_graph6, connection=vertica}
 -- graph 6
-
 select
 	ifnull(BrandName ,'Others') as Brand,
 	sum(Discount *Quantity) as Amount
@@ -59,23 +57,83 @@ order by
 	Amount desc;
 ```
 
+```{sql SqlServer_graph6, connection=sqlserver}
+-- graph 6
+
+select 
+  DisplaySubCategoryName, 
+  Sum(cid.Discount)DiscountAmount
+FROM 
+  [CIHeader] as cih 
+INNER JOIN 
+  [CIDetail] as cid
+  on 
+  cid.InvoiceNo = cih.InvoiceNo
+inner join 
+  item_master(nolock)im 
+  on 
+  im.itemid = cid.itemid
+where 
+  ispromo=1
+  and
+  vouchersrno='' 
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) >= '2020-03-01' 
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) < '2020-03-12'
+Group by
+  DisplaySubCategoryName 
+order by 
+  DiscountAmount desc 
+```
+
 ```{sql vertica_graph5, connection=vertica}
 -- graph 5
-
 select
-	ifnull(SubCategoryName ,'Others') as Sub_Category,
-	sum(Discount*Quantity ) as Amount
+  ifnull(SubCategoryName ,'Others') as Sub_Category,
+  sum(Discount*Quantity ) as Amount
 from  
-	fact_promotions_vestige p
+  fact_promotions_vestige p
 where 
-	DateKey between 20190912 and 20200311
-	and 
-	p.CountryId =1
-group by
-	Sub_Category 
-order by 
-	Amount desc
+  DateKey between 20190912 and 20200311
+  and
+  p.CountryId =1
+group by 
+  Sub_Category 
+order by
+  Amount desc
 limit 10;
+
+```
+
+```{sql SqlServer_graph5, connection=sqlserver}
+-- graph 5
+
+select 
+  DisplaySubCategoryName, 
+  Sum(cid.Discount)DiscountAmount
+FROM 
+  [CIHeader] as cih 
+INNER JOIN 
+  [CIDetail] as cid
+  on 
+  cid.InvoiceNo = cih.InvoiceNo
+inner join 
+  item_master(nolock)im 
+  on 
+  im.itemid = cid.itemid
+where 
+  ispromo=1
+  and
+  vouchersrno='' 
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) >= '2020-03-01' 
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) < '2020-03-12'
+Group by
+  DisplaySubCategoryName 
+order by 
+  DiscountAmount desc 
 ```
 
 ```{sql vertica_graph4, connection=vertica}
@@ -87,20 +145,35 @@ select
 from 
 	fact_promotions_vestige p
 where 
-	DateKey between 20190912 and 20200311
+	DateKey between 20200301 and 20200311
 	and 
 	p.CountryId =1
 group by 
 	Product_CategoryName
 order by 
 	Amount desc;
+
+```
+
+```{sql SqlServer_graph4, connection=sqlserver}
+
+select 
+  DisplayCategoryName, 
+  Sum(cid.Discount)DiscountAmount
+FROM [CIHeader] as cih 
+INNER JOIN [CIDetail] as cid on cid.InvoiceNo = cih.InvoiceNo
+inner join item_master(nolock)im on im.itemid = cid.itemid
+where ispromo=1 and vouchersrno='' and 
+convert(varchar, cih.[InvoiceDate], 23) >= '2020-03-01' and convert(varchar, cih.[InvoiceDate], 23) < '2020-03-12'
+Group by DisplayCategoryName order by DiscountAmount desc 
 ```
 
 ```{sql vertica_graph3, connection=vertica}
 -- graph 3
+
 /*
 select
-	ifnull(ItemName ,'Others') as Product,
+	ifnull( ItemName ,'Others') as Product,
 	sum(Discount*Quantity ) as Amount
 from  
 	fact_promotions_vestige p
@@ -138,6 +211,51 @@ limit
 
 select 
   top 20
+  ItemName, 
+  Sum(cid.Discount)Discount
+FROM 
+  [CIHeader] as cih 
+INNER JOIN 
+  [CIDetail] as cid 
+  on 
+  cid.InvoiceNo = cih.InvoiceNo
+where 
+  ispromo=1 
+  and 
+  vouchersrno='' --- Excluding this will give us all the discount amount with coupon Promotion
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) >= '2020-03-01' 
+  and 
+  convert(varchar, cih.[InvoiceDate], 23) < '2020-03-12'
+Group by 
+  ItemName 
+order by 
+  Discount desc 
+```
+
+```{sql vertica_graph2, connection=vertica}
+-- graph 2
+
+select
+	AgeBucket  as AgeBucket,
+	count(DISTINCT  Promotion_Id ) as noOfPromotions
+from  
+	fact_promotions_vestige p
+where 
+	DateKey between 20190912 and 20200311
+	and 
+	p.CountryId = 1
+group by 
+	AgeBucket 
+order by 
+	noOfPromotions desc;
+	
+```
+
+```{sql SqlServer_graph2, connection=sqlserver}
+
+select
+  top 20
   im.DisplayCategoryName, 
   Count(distinct cidd.PromotionId) as counts
 FROM 
@@ -169,26 +287,7 @@ Group by
   im.DisplayCategoryName
 order by
   counts desc;
-  
-```
 
-```{sql vertica_graph2, connection=vertica}
--- graph 2
-
-select
-	AgeBucket  as AgeBucket,
-	count(DISTINCT  Promotion_Id ) as noOfPromotions
-from  
-	fact_promotions_vestige p
-where 
-	DateKey between 20190912 and 20200311
-	and 
-	p.CountryId = 1
-group by 
-	AgeBucket 
-order by 
-	noOfPromotions desc;
-	
 ```
 
 ```{sql vertica_graph1, connection=vertica}
@@ -265,4 +364,3 @@ vertica %>%
   # select(DateKey)
 
 ```
-
