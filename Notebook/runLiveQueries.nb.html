@@ -1751,60 +1751,300 @@ summary {
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxudmVydGljYVxuXG5gYGAifQ== -->
-<pre class="r"><code>vertica
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG4jIGxvYWQgbGlicmFyaWVzIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxubGlicmFyeShcImRhdGEudGFibGVcIilcbmxpYnJhcnkoXCJkcGx5clwiKVxubGlicmFyeShcIm1hZ3JpdHRyXCIpXG5saWJyYXJ5KFwiREJJXCIpXG5saWJyYXJ5KFwib2RiY1wiKVxubGlicmFyeShcInN0cmluZ2lcIilcbmxpYnJhcnkoXCJyZWFkclwiKVxubGlicmFyeShcImdncGxvdDJcIilcbmxpYnJhcnkoXCJwbG90bHVja1wiKVxuXG4jIHNldCBkZWZhdWx0cyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS1cblxuc2V0RFR0aHJlYWRzKDBMKVxudGhlbWVfc2V0KHRoZW1lX2J3KCkpXG5cbiMgc2V0dXAgQ29ubmVjdGlvbnMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLVxuXG5zcWxzZXJ2ZXIgPC0gZGJDb25uZWN0KG9kYmM6Om9kYmMoKSxcbiAgICAgICAgICAgICAgICAgICAgICAgZHNuID0gXCJ2ZXN0aWdlX3NxbHNlcnZlclwiLFxuICAgICAgICAgICAgICAgICAgICAgICB1aWQgPSBcImRldnJlYWRvbmx5dXNlclwiLFxuICAgICAgICAgICAgICAgICAgICAgICBwd2QgPSBcIkQzXlUkRXJcIilcblxuIyBkYkxpc3RUYWJsZXMoc3Fsc2VydmVyKVxuIyBkYkRpc2Nvbm5lY3Qoc3Fsc2VydmVyKVxuXG52ZXJ0aWNhIDwtIGRiQ29ubmVjdChvZGJjOjpvZGJjKCksXG4gICAgICAgICAgICAgICAgICAgICBkc24gPSBcInZlc3RpZ2VfdmVydGljYVwiLFxuICAgICAgICAgICAgICAgICAgICAgdWlkID0gXCJkYmFkbWluXCIsXG4gICAgICAgICAgICAgICAgICAgICBwd2QgPSBcImRhdGExMjNcIilcblxuIyBkYkxpc3RUYWJsZXModmVydGljYSlcbiMgZGJEaXNjb25uZWN0KHZlcnRpY2EpXG5cbmBgYCJ9 -->
+<pre class="r"><code>
+# load libraries ----------------------------------------------------------
+
+library(&quot;data.table&quot;)
+library(&quot;dplyr&quot;)
+library(&quot;magrittr&quot;)
+library(&quot;DBI&quot;)
+library(&quot;odbc&quot;)
+library(&quot;stringi&quot;)
+library(&quot;readr&quot;)
+library(&quot;ggplot2&quot;)
+library(&quot;plotluck&quot;)
+
+# set defaults ------------------------------------------------------------
+
+setDTthreads(0L)
+theme_set(theme_bw())
+
+# setup Connections -------------------------------------------------------
+
+sqlserver &lt;- dbConnect(odbc::odbc(),
+                       dsn = &quot;vestige_sqlserver&quot;,
+                       uid = &quot;devreadonlyuser&quot;,
+                       pwd = &quot;D3^U$Er&quot;)
+
+# dbListTables(sqlserver)
+# dbDisconnect(sqlserver)
+
+vertica &lt;- dbConnect(odbc::odbc(),
+                     dsn = &quot;vestige_vertica&quot;,
+                     uid = &quot;dbadmin&quot;,
+                     pwd = &quot;data123&quot;)
+
+# dbListTables(vertica)
+# dbDisconnect(vertica)
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-output-begin eyJkYXRhIjoiPE9kYmNDb25uZWN0aW9uPiBkYmFkbWluQDUyLjc0LjE5LjE4MVxuICBEYXRhYmFzZTogdmVzdGlnZVxuICBWZXJ0aWNhIERhdGFiYXNlIFZlcnNpb246IDA5LjAyLjAwMDFcbiJ9 -->
-<pre><code>&lt;OdbcConnection&gt; dbadmin@52.74.19.181
-  Database: vestige
-  Vertica Database Version: 09.02.0001</code></pre>
-<!-- rnb-output-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG5cbnNlbGVjdCBcbiAgdG9wIDEwIFxuICAqIFxuZnJvbVxuICBDSUhlYWRlclxuXG5gYGAifQ== -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA2XG5cbnNlbGVjdFxuXHRpZm51bGwoQnJhbmROYW1lICwnT3RoZXJzJykgYXMgQnJhbmQsXG5cdHN1bShEaXNjb3VudCAqUXVhbnRpdHkpIGFzIEFtb3VudFxuZnJvbSAgXG5cdGZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHBcbndoZXJlIFxuXHREYXRlS2V5IGJldHdlZW4gMjAxOTA5MTIgYW5kIDIwMjAwMzExXG5cdGFuZCBwLkNvdW50cnlJZCA9MVxuZ3JvdXAgYnkgXG5cdEJyYW5kIFxub3JkZXIgYnkgXG5cdEFtb3VudCBkZXNjO1xuYGBgIn0= -->
+<pre class="sql"><code>-- graph 6
+
+select
+    ifnull(BrandName ,&#39;Others&#39;) as Brand,
+    sum(Discount *Quantity) as Amount
+from  
+    fact_promotions_vestige p
+where 
+    DateKey between 20190912 and 20200311
+    and p.CountryId =1
+group by 
+    Brand 
+order by 
+    Amount desc;</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA1XG5cbnNlbGVjdFxuXHRpZm51bGwoU3ViQ2F0ZWdvcnlOYW1lICwnT3RoZXJzJykgYXMgU3ViX0NhdGVnb3J5LFxuXHRzdW0oRGlzY291bnQqUXVhbnRpdHkgKSBhcyBBbW91bnRcbmZyb20gIFxuXHRmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwXG53aGVyZSBcblx0RGF0ZUtleSBiZXR3ZWVuIDIwMTkwOTEyIGFuZCAyMDIwMDMxMVxuXHRhbmQgXG5cdHAuQ291bnRyeUlkID0xXG5ncm91cCBieVxuXHRTdWJfQ2F0ZWdvcnkgXG5vcmRlciBieSBcblx0QW1vdW50IGRlc2NcbmxpbWl0IDEwO1xuYGBgIn0= -->
+<pre class="sql"><code>-- graph 5
+
+select
+    ifnull(SubCategoryName ,&#39;Others&#39;) as Sub_Category,
+    sum(Discount*Quantity ) as Amount
+from  
+    fact_promotions_vestige p
+where 
+    DateKey between 20190912 and 20200311
+    and 
+    p.CountryId =1
+group by
+    Sub_Category 
+order by 
+    Amount desc
+limit 10;</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCA0XG5cbnNlbGVjdFxuXHRpZm51bGwoUHJvZHVjdF9DYXRlZ29yeU5hbWUgLCdPdGhlcnMnKSBhcyBDYXRlZ29yeSxcblx0c3VtKERpc2NvdW50ICogUXVhbnRpdHkgKSBhcyBBbW91bnRcbmZyb20gXG5cdGZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHBcbndoZXJlIFxuXHREYXRlS2V5IGJldHdlZW4gMjAxOTA5MTIgYW5kIDIwMjAwMzExXG5cdGFuZCBcblx0cC5Db3VudHJ5SWQgPTFcbmdyb3VwIGJ5IFxuXHRQcm9kdWN0X0NhdGVnb3J5TmFtZVxub3JkZXIgYnkgXG5cdEFtb3VudCBkZXNjO1xuYGBgIn0= -->
+<pre class="sql"><code>-- graph 4
+
+select
+    ifnull(Product_CategoryName ,&#39;Others&#39;) as Category,
+    sum(Discount * Quantity ) as Amount
+from 
+    fact_promotions_vestige p
+where 
+    DateKey between 20190912 and 20200311
+    and 
+    p.CountryId =1
+group by 
+    Product_CategoryName
+order by 
+    Amount desc;</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCAzXG4vKlxuc2VsZWN0XG5cdGlmbnVsbChJdGVtTmFtZSAsJ090aGVycycpIGFzIFByb2R1Y3QsXG5cdHN1bShEaXNjb3VudCpRdWFudGl0eSApIGFzIEFtb3VudFxuZnJvbSAgXG5cdGZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHBcbndoZXJlIFxuXHREYXRlS2V5IGJldHdlZW4gMjAyMDAzMDEgYW5kIDIwMjAwMzEyXG5cdGFuZCBcblx0cC5Db3VudHJ5SWQgPTFcbmdyb3VwIGJ5IFxuXHRJdGVtTmFtZSBcbm9yZGVyIGJ5IFxuXHRBbW91bnQgZGVzY1xubGltaXRcbiAgMjA7XG4qL1xuXG5zZWxlY3Rcblx0SXRlbV9JZCBhcyBQcm9kdWN0LFxuXHRzdW0oRGlzY291bnQqUXVhbnRpdHkgKSBhcyBBbW91bnRcbmZyb20gIFxuXHRmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwXG53aGVyZSBcblx0RGF0ZUtleSBiZXR3ZWVuIDIwMjAwMzAxIGFuZCAyMDIwMDMxMlxuXHRhbmQgXG5cdHAuQ291bnRyeUlkID0xXG5ncm91cCBieSBcblx0SXRlbV9JZCBcbm9yZGVyIGJ5IFxuXHRBbW91bnQgZGVzY1xubGltaXRcbiAgMjA7XG5cbmBgYCJ9 -->
+<pre class="sql"><code>-- graph 3
+/*
+select
+    ifnull(ItemName ,&#39;Others&#39;) as Product,
+    sum(Discount*Quantity ) as Amount
+from  
+    fact_promotions_vestige p
+where 
+    DateKey between 20200301 and 20200312
+    and 
+    p.CountryId =1
+group by 
+    ItemName 
+order by 
+    Amount desc
+limit
+  20;
+*/
+
+select
+    Item_Id as Product,
+    sum(Discount*Quantity ) as Amount
+from  
+    fact_promotions_vestige p
+where 
+    DateKey between 20200301 and 20200312
+    and 
+    p.CountryId =1
+group by 
+    Item_Id 
+order by 
+    Amount desc
+limit
+  20;
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG5cbnNlbGVjdCBcbiAgdG9wIDIwXG4gIGltLkRpc3BsYXlDYXRlZ29yeU5hbWUsIFxuICBDb3VudChkaXN0aW5jdCBjaWRkLlByb21vdGlvbklkKSBhcyBjb3VudHNcbkZST00gXG4gIFtDSURldGFpbERpc2NvdW50XSBjaWRkIHdpdGgobm9sb2NrKVxuSU5ORVIgSk9JTiBcbiAgW0NJSGVhZGVyXSBhcyBjaWggXG4gIG9uIFxuICBjaWguSW52b2ljZU5vID0gY2lkZC5JbnZvaWNlTm9cbklOTkVSIEpPSU4gXG4gIFtDSURldGFpbF0gYXMgY2lkIFxuICBvblxuICBjaWQuSW52b2ljZU5vID0gY2loLkludm9pY2VOb1xuSU5ORVIgSk9JTiBcbiAgUHJvbW90aW9uX01hc3RlciBwbSB3aXRoIChub2xvY2spIFxuICBvbiBcbiAgY2lkZC5Qcm9tb3Rpb25JZCA9IGNhc3QocG0uUHJvbW90aW9uSWQgYXMgdmFyY2hhcigxMCkgKVxuSW5uZXIgSm9pbiBcbiAgSXRlbV9tYXN0ZXIobm9sb2NrKSBpbVxuICBvbiBcbiAgaW0uaXRlbWlkID0gY2lkLml0ZW1pZFxuICBhbmQgXG4gIGNpZGQuUHJvbW90aW9uSWQgIT0nbnVsbCdcbndoZXJlIFxuICBpc3Byb21vPTEgXG4gIGFuZFxuICBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPj0gJzIwMjAtMDMtMDEnXG4gIGFuZCBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPCAnMjAyMC0wMy0xMidcbkdyb3VwIGJ5IFxuICBpbS5EaXNwbGF5Q2F0ZWdvcnlOYW1lXG5vcmRlciBieVxuICBjb3VudHMgZGVzYztcbiAgXG5gYGAifQ== -->
 <pre class="sql"><code>
 select 
-  top 10 
-  * 
-from
-  CIHeader
-</code></pre>
+  top 20
+  im.DisplayCategoryName, 
+  Count(distinct cidd.PromotionId) as counts
+FROM 
+  [CIDetailDiscount] cidd with(nolock)
+INNER JOIN 
+  [CIHeader] as cih 
+  on 
+  cih.InvoiceNo = cidd.InvoiceNo
+INNER JOIN 
+  [CIDetail] as cid 
+  on
+  cid.InvoiceNo = cih.InvoiceNo
+INNER JOIN 
+  Promotion_Master pm with (nolock) 
+  on 
+  cidd.PromotionId = cast(pm.PromotionId as varchar(10) )
+Inner Join 
+  Item_master(nolock) im
+  on 
+  im.itemid = cid.itemid
+  and 
+  cidd.PromotionId !=&#39;null&#39;
+where 
+  ispromo=1 
+  and
+  convert(varchar, cih.[InvoiceDate], 23) &gt;= &#39;2020-03-01&#39;
+  and convert(varchar, cih.[InvoiceDate], 23) &lt; &#39;2020-03-12&#39;
+Group by 
+  im.DisplayCategoryName
+order by
+  counts desc;
+  </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6W10sInJkZiI6Ikg0c0lBQUFBQUFBQUJ1MWFiV3dUWlJ3Lzl0S3QzUVo3SS9xQmFIMkRhVGJvWGE4dmw3RHdkRzIzMVkyMmE2OWp2RVFzN1hXN1pPdU42MjJ1OEVFZzJZSWlFU1BLQjBNQ2dtUVR4VVJqSWg5SWhHZ0lNcFNvT0lWRUpaRVF3UERCQ0lZUGdNLzFYbm85ZXFPVERsblNTNTc4bitmMyt6Ly9lNTcvODM5ZTdta0RyaDZ6b2NlQUlFZ3hVcXlEcVJSbUVaM1RqMklXREVGS2ltQnBIbEtDNkhrNUFyWHFZSWFBcVJvbWcwaFVlWERNak5xWG1mZ0h6UVppMlVCek5oRFBCbHF5Z2Rac29DMGJhTThHRWxsQTFBUjdPSi92bVdQcXFhTGxsNC9VODNMdFk0Wm1YcjUyOXNBVWxMcFA5dTQvemN2VFAwenhlcnBibTJzWktNdjBob3Z0dkRSTzN2NmJsMHZPTjIva0pmSGtUci9LbGFXUi9uQWlJYnF4U0FUTC9MNmdweWZDaVVWZHFzaXBhM0tibURnbDFwVEE0aERwaE9LT2FseXFuYjVsc0hQTDFFT2p4akVOM0t5QjR4cTRSUU8zYXVBMkRkeXVnUlBaY1g3VXhINGppUDR1ZlBJb3F3UzdpL2JrbG1hc3J4d3ZKRzh5MDI2NTNXN0dVVE1oK2JYY2dxS28xV1NYNHFIY1Nsak5oTWxzbFhtVGhTQnNOanpONHhobU01dGtIak5aYllURkp2TzQyVzRsN0ZpbVBRTFZLbHRRQWpmaHFCM21VN01OY0tQRDYzLysrQ013dlBYcm4reGpxMEhUcGR1dm56OTZBM1I4ZW15NXRRWUhHNXIrK0llNnZRUDBUbnlGZmJOcUhLeC83L2RmdjkvK0xWaHphdkdWa1IvdmdGajErSEh5MUJpSXJEbDZZL1ZuWjJXNyswdTc4SktySFdEZnVaUDdidW43UWFnWWVBK09Id2NqOUhoUHN2a1hzR1AzMkluRlcvYUNYZXpKNUtIUEs4Q3U2NDYvYXFjU1lNZjFDMCtmdmZReWVHdmk2dVZ6c2UvQXpxTmQyeWJlcmxUNTFXQ0VEMmJDbDVwTVNnUWxNQlZpTkpyeWdxQ20rMXZXMU1sc2V6MW1NZGtnYkZRK2FRNjFhSEVFb1diU0hJNWI3eUVsRHJiTHJtVVR4WEJNbTBOTm1oeWMvSnFjV2J0L0tHcTZwNkZTekNENWY0UlkzUDNCdGRFbnZnaUFkMWFzYTdoeDRrM2cySklpd1dDNUlMZE9UQm1hQncrQ3NjTm0vZ0dqVndTNTdVdUIzOTRweUcwTnpZTUhwZ3l5M2NCYWFMYnJUeEQ0TFdWM3hWMURpZ2VOb3YwVmZSQmQ5enh3UFFmVnJvMEM1NmFMYlVmcU53TndXS2puM3BPcUFNQXpxZmNqOGhvR3Q1ZmNValV5cTJ0dnp1MFE5U3U2Y2t1enVkTVgzVVZ5Mzl5TEplWDc3T2NHekU3WU1pTDVVVWJtaG45bkdET0NQait6Y2ttcThXc09PbHh0b1VESTZQYVM3b0EvNEFtNmc0MUdGTE0yR2dPaGpwVWVyNmV4MiswT0dJT09ia2Vnd3hFd2VoMXRqa0Nqc2NYZDd2RzZDa1lLUmg2ZWtjeklkZnNEdnFhZ3A3T2JyK0QzQmNoZ1k0dTcxUmR3RzRQdEFZL1JGU0pKaDdIVlEzcmR3YURSMlJscWFUUjYzZENtMCtIMU9rSnQ3U1FzTjFrS3hnckc1cDZ4aC9PTmxrKzc0cDQyYjBsdUthTWRPdHlNcHIvOC82OVMrdXkzTU1mMDM4NnM0cW1GLzd5Rm55QlcxRFlIa0xuZDlnZTVIM2tVOXNXQ2tZS1J3dm1wWUt4ZzdGRTVQODNhdlZQaC9EUk5tc3Rua0xuY2R1SE90MEdZQUdDNUtLdEZXUy9LeGFKOFZwU0xSSW1vOUVRN3N0MFBMNXg0YzEzRFRYRG9UT2ZrNU9RWnNQRUY0YTc0MWZuMS9LMHhlUCtZY0plOEU0L3hEM2hESi9Bdk9ZVzc2MTIxUXYxM3gxTDZZa3pONUU3OVFlS3doTDk5ZktoNStZNnpJVlFETS9tU2ViN2pUSTNCRm1TR2Q1YjVYMWVWWTFXRW9iT1ltNzNmY21aNi96dkRlTTc4clQ4ZUhxQ2tmd2xJUDM3clBmRmhobzVRWGtZRUtrVEFGZVlvRVZyZ0hFcHd6QURGK3Rnb3hjcWFwWjFNcjF3bzhUczlVU25mNHBQenBhVEhLeXRWdWVnRXg5SWJoamlHbFRYMFpIakVNY0FNeGFWQXJCSmJrQUhPaDFVamZEbFQxUjlPRGxBcXNOTFpGNDczWmxZdkl4a3UzTi9TblZIMFMwVmRrQXR6UXdtcHZvdnFwNGNwTnJtU2lWS3lWeEorbG9sUWlRUWx0OXZKVXRCSDBaYWtwQ01DQ3M4Wm9BazZSaXVVS2lWRW9WVUdYeCtMeVE2UjMwOHlNclpReEVqR0VZMnlzQm1kZEp4Q3B5T3g2VWp6ZEtUME8vMENtWFRTWEZKdVNyVU0rK2w0Sk8yaU5NNTdrNUwxYTlObStBRmhrMWtZa3VxbkJ2djRmNktvWDcyUzJVRDNVM0w4Q0hDTVpRWmtLM1VpMkFwQnNSZW80Z1daREtaZHlheE5TUjZwVVZBWlBxbFZFSmxlVVRLWmZxbFhHbE41UnNtcGZhTnNSSVozREttZ0RzVnBUb3JraWhTeWlxSjcrK1I1SkU0dVAwdkh1WFFzcDJhMkl0NHJTWW9kb09QaGZtY2FxeE9yT3BsNGdvYnFpZ2l1VTB5UFZvWnRZZUx5YkRLMHdoYnlOZVZWb0FaTytCZUhXRG9ScFNNY3pjVFR2VTYxSXRoSER3N1M4VjQ0aTlsZVNqS2poeTVpYVlxbEplWEhmVnpmUGNwa2NwQlM3WGJTNm1lSWhybncwaGdMMTBEVnVxaG5tVmVXU21zanY4QVc4WXN0M0dOdUlzS0dkK2RmdUgrSDZOY21BQUE9In0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["InvoiceNo"],"name":[1],"type":["chr"],"align":["left"]},{"label":["InvoiceDate"],"name":[2],"type":["S3: POSIXct"],"align":["right"]},{"label":["CustomerOrderNo"],"name":[3],"type":["chr"],"align":["left"]},{"label":["LogNo"],"name":[4],"type":["chr"],"align":["left"]},{"label":["PCId"],"name":[5],"type":["int"],"align":["right"]},{"label":["BOId"],"name":[6],"type":["int"],"align":["right"]},{"label":["TINNo"],"name":[7],"type":["chr"],"align":["left"]},{"label":["DistributorId"],"name":[8],"type":["chr"],"align":["left"]},{"label":["TaxAmount"],"name":[9],"type":["dbl"],"align":["right"]},{"label":["InvoiceAmount"],"name":[10],"type":["dbl"],"align":["right"]},{"label":["DiscountAmount"],"name":[11],"type":["chr"],"align":["left"]},{"label":["PaymentAmount"],"name":[12],"type":["chr"],"align":["left"]},{"label":["ChangeAmount"],"name":[13],"type":["dbl"],"align":["right"]},{"label":["TotalBV"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["TotalPV"],"name":[15],"type":["dbl"],"align":["right"]},{"label":["Status"],"name":[16],"type":["int"],"align":["right"]},{"label":["DeliveryMode"],"name":[17],"type":["chr"],"align":["left"]},{"label":["IsProcessed"],"name":[18],"type":["int"],"align":["right"]},{"label":["CreatedBy"],"name":[19],"type":["int"],"align":["right"]},{"label":["CreatedDate"],"name":[20],"type":["S3: POSIXct"],"align":["right"]},{"label":["ModifiedBy"],"name":[21],"type":["chr"],"align":["left"]},{"label":["ModifiedDate"],"name":[22],"type":["S3: POSIXct"],"align":["right"]},{"label":["StaffId"],"name":[23],"type":["int"],"align":["right"]},{"label":["DeliveryToId"],"name":[24],"type":["int"],"align":["right"]},{"label":["DeliverToAddressLine1"],"name":[25],"type":["chr"],"align":["left"]},{"label":["DeliverToAddressLine2"],"name":[26],"type":["chr"],"align":["left"]},{"label":["DeliverToAddressLine3"],"name":[27],"type":["chr"],"align":["left"]},{"label":["DeliverToAddressLine4"],"name":[28],"type":["chr"],"align":["left"]},{"label":["DeliverToCityId"],"name":[29],"type":["int"],"align":["right"]},{"label":["DeliverToPincode"],"name":[30],"type":["chr"],"align":["left"]},{"label":["DeliverToStateId"],"name":[31],"type":["int"],"align":["right"]},{"label":["DeliverToCountryId"],"name":[32],"type":["int"],"align":["right"]},{"label":["DeliverToTelephone"],"name":[33],"type":["chr"],"align":["left"]},{"label":["DeliverToMobile"],"name":[34],"type":["chr"],"align":["left"]},{"label":["DeliverfromId"],"name":[35],"type":["int"],"align":["right"]},{"label":["DeliverFromAddress1"],"name":[36],"type":["chr"],"align":["left"]},{"label":["DelverFromAddress2"],"name":[37],"type":["chr"],"align":["left"]},{"label":["DeliverFromAddress3"],"name":[38],"type":["chr"],"align":["left"]},{"label":["DeliverFromAddress4"],"name":[39],"type":["chr"],"align":["left"]},{"label":["DeliverFromCityId"],"name":[40],"type":["int"],"align":["right"]},{"label":["DeliverFromPincode"],"name":[41],"type":["chr"],"align":["left"]},{"label":["DeliverFromStateId"],"name":[42],"type":["int"],"align":["right"]},{"label":["DeliverFromCountryId"],"name":[43],"type":["int"],"align":["right"]},{"label":["DeliverFromTelephone"],"name":[44],"type":["chr"],"align":["left"]},{"label":["DeliverFromMobile"],"name":[45],"type":["chr"],"align":["left"]},{"label":["TotalUnits"],"name":[46],"type":["dbl"],"align":["right"]},{"label":["TotalWeight"],"name":[47],"type":["dbl"],"align":["right"]},{"label":["InvoicePrinted"],"name":[48],"type":["lgl"],"align":["right"]},{"label":["OrderMode"],"name":[49],"type":["int"],"align":["right"]},{"label":["TerminalCode"],"name":[50],"type":["chr"],"align":["left"]},{"label":["InvoiceConsiderDate"],"name":[51],"type":["S3: POSIXct"],"align":["right"]},{"label":["IsProcessedForBonus"],"name":[52],"type":["lgl"],"align":["right"]},{"label":["FileInvoNo"],"name":[53],"type":["chr"],"align":["left"]},{"label":["TaxJurisdictionId"],"name":[54],"type":["chr"],"align":["left"]},{"label":["OrderShippingCharges"],"name":[55],"type":["dbl"],"align":["right"]},{"label":["Courierid"],"name":[56],"type":["int"],"align":["right"]},{"label":["OtherShippingChargesType"],"name":[57],"type":["int"],"align":["right"]}],"data":[{"1":"I42318/000001","2":"2019-03-09 18:41:55","3":"CO/423/18/000001","4":"NA","5":"7319","6":"7319","7":"","8":"88341398","9":"328.3414","10":"2178.6586","11":"204.00","12":"2507.00","13":"0","14":"1321.48","15":"73.43","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 18:41:55","21":"2897","22":"2019-03-09 18:41:55","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"12","47":"3437.88","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"},{"1":"I42318/000002","2":"2019-03-09 18:43:56","3":"CO/423/18/000002","4":"NA","5":"7319","6":"7319","7":"","8":"51116081","9":"360.1108","10":"2154.8899","11":"192.00","12":"2515.00","13":"0","14":"1359.84","15":"75.49","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 18:43:56","21":"2897","22":"2019-03-09 18:43:56","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"28","47":"2918.65","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"},{"1":"I42318/000003","2":"2019-03-09 18:47:03","3":"CO/423/18/000003","4":"NA","5":"7319","6":"7319","7":"","8":"69639036","9":"14.9492","10":"84.0508","11":"0.00","12":"99.00","13":"0","14":"35.00","15":"1.94","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 18:47:03","21":"2897","22":"2019-03-09 18:47:03","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"4","47":"274.68","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"},{"1":"I42318/000004","2":"2019-03-09 19:57:50","3":"CO/423/18/000004","4":"NA","5":"7319","6":"7319","7":"","8":"50599774","9":"55.3964","10":"390.6036","11":"0.00","12":"446.00","13":"0","14":"256.50","15":"14.25","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 19:57:50","21":"2897","22":"2019-03-09 19:57:50","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"5","47":"496.88","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"},{"1":"I42318/000005","2":"2019-03-09 19:59:43","3":"CO/423/18/000005","4":"NA","5":"7319","6":"7319","7":"","8":"69422730","9":"145.4342","10":"882.5658","11":"0.00","12":"1028.00","13":"0","14":"565.23","15":"31.41","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 19:59:43","21":"2897","22":"2019-03-09 19:59:43","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"11","47":"2398.98","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"},{"1":"I42318/000006","2":"2019-03-09 20:02:45","3":"CO/423/18/000006","4":"NA","5":"7319","6":"7319","7":"","8":"52067957","9":"189.3052","10":"1052.6948","11":"0.00","12":"1242.00","13":"0","14":"725.40","15":"40.29","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 20:02:45","21":"2897","22":"2019-03-09 20:02:45","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"10","47":"934.55","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"},{"1":"I42318/000007","2":"2019-03-09 20:03:48","3":"CO/423/18/000007","4":"NA","5":"7319","6":"7319","7":"","8":"64386982","9":"126.4356","10":"1083.5644","11":"102.00","12":"1210.00","13":"0","14":"701.15","15":"38.96","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 20:03:48","21":"2897","22":"2019-03-09 20:03:48","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"7","47":"896.86","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"},{"1":"I42318/000008","2":"2019-03-09 20:05:23","3":"CO/423/18/000008","4":"NA","5":"7319","6":"7319","7":"","8":"69639091","9":"107.1430","10":"893.8570","11":"0.00","12":"1001.00","13":"0","14":"600.00","15":"33.34","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 20:05:23","21":"2897","22":"2019-03-09 20:05:23","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"2","47":"121.06","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"},{"1":"I42318/000009","2":"2019-03-09 20:05:51","3":"CO/423/18/000009","4":"NA","5":"7319","6":"7319","7":"","8":"69639091","9":"176.5206","10":"1130.4794","11":"102.00","12":"1307.00","13":"0","14":"777.50","15":"43.18","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 20:05:51","21":"2897","22":"2019-03-09 20:05:51","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"5","47":"1028.69","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"},{"1":"I42318/000010","2":"2019-03-09 20:07:00","3":"CO/423/18/000010","4":"NA","5":"7319","6":"7319","7":"","8":"51940418","9":"154.8352","10":"951.1648","11":"0.00","12":"1106.00","13":"0","14":"581.03","15":"32.28","16":"1","17":"NA","18":"1","19":"2897","20":"2019-03-09 20:07:00","21":"2897","22":"2019-03-09 20:07:00","23":"2897","24":"NA","25":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","26":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","27":"","28":"","29":"295","30":"431003","31":"21","32":"1","33":"9422242617","34":"9422242617","35":"7319","36":"SADGURU ENTERPRISES, 126, RUKMINI,VEER SAVARKAR NAGAR, BEHIND","37":"PRO-SILVER SPORTS,BEFORE SHRI DUTTA FITNESS CLUB, NEAR CANNAUGHT, N-5","38":"","39":"NA","40":"295","41":"431003","42":"21","43":"1","44":"9422242617","45":"9422242617","46":"12","47":"1441.52","48":"FALSE","49":"1","50":"2897","51":"2019-03-31 23:59:00","52":"NA","53":"NA","54":"21","55":"0","56":"NA","57":"1"}],"options":{"columns":{"min":{},"max":[10],"total":{}},"rows":{"min":[10],"max":[10],"total":{}},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 <!-- rnb-chunk-begin -->
-<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG5cbnNlbGVjdFxuICAqIFxuZnJvbSBcbiAgZGltX3Byb21vdGlvbnNfdmVzdGlnZSBcbmxpbWl0IDEwXG5cbmBgYCJ9 -->
-<pre class="sql"><code>
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG4tLSBncmFwaCAyXG5cbnNlbGVjdFxuXHRBZ2VCdWNrZXQgIGFzIEFnZUJ1Y2tldCxcblx0Y291bnQoRElTVElOQ1QgIFByb21vdGlvbl9JZCApIGFzIG5vT2ZQcm9tb3Rpb25zXG5mcm9tICBcblx0ZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcFxud2hlcmUgXG5cdERhdGVLZXkgYmV0d2VlbiAyMDE5MDkxMiBhbmQgMjAyMDAzMTFcblx0YW5kIFxuXHRwLkNvdW50cnlJZCA9IDFcbmdyb3VwIGJ5IFxuXHRBZ2VCdWNrZXQgXG5vcmRlciBieSBcblx0bm9PZlByb21vdGlvbnMgZGVzYztcblx0XG5gYGAifQ== -->
+<pre class="sql"><code>-- graph 2
+
 select
-  * 
-from 
-  dim_promotions_vestige 
-limit 10
+    AgeBucket  as AgeBucket,
+    count(DISTINCT  Promotion_Id ) as noOfPromotions
+from  
+    fact_promotions_vestige p
+where 
+    DateKey between 20190912 and 20200311
+    and 
+    p.CountryId = 1
+group by 
+    AgeBucket 
+order by 
+    noOfPromotions desc;
+    </code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG5zZWxlY3Rcblx0aWZudWxsKFByb2R1Y3RfQ2F0ZWdvcnlOYW1lLCdPdGhlcnMnKSBhcyBDYXRlZ29yeSxcblx0Y291bnQoRElTVElOQ1QgUHJvbW90aW9uX0lkICkgYXMgUHJvbW90aW9uX0NvdW50XG5mcm9tICBcblx0ZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcFxud2hlcmUgXG5cdERhdGVLZXkgYmV0d2VlbiAyMDIwMDMwMSBhbmQgMjAyMDAzMTFcblx0YW5kIFxuXHRwLkNvdW50cnlJZCA9MVxuZ3JvdXAgYnlcblx0Q2F0ZWdvcnlcbm9yZGVyIGJ5XG5cdFByb21vdGlvbl9Db3VudCBkZXNjO1xuXG5gYGAifQ== -->
+<pre class="sql"><code>select
+    ifnull(Product_CategoryName,&#39;Others&#39;) as Category,
+    count(DISTINCT Promotion_Id ) as Promotion_Count
+from  
+    fact_promotions_vestige p
+where 
+    DateKey between 20200301 and 20200311
+    and 
+    p.CountryId =1
+group by
+    Category
+order by
+    Promotion_Count desc;
 </code></pre>
 <!-- rnb-source-end -->
-<!-- rnb-frame-begin eyJtZXRhZGF0YSI6W10sInJkZiI6Ikg0c0lBQUFBQUFBQUJyMldYVWdVVVJUSHI3UHV1THU1S3ZiUXE5Q0RFQ1M2V2hCUnJlMGFhVmlpRmliQmVOdVozYWJXR1p1ZHpiWWdCT2sxQ0hveExaR29Yb29zZXZDbE1ub0llNUxkUGhDRmlnajZVSHBLSWxBNzk4NjlPck1haXEwdDdQN20vdStaT1dmK2M4N3VOb2ZicW4xdFBvU1FDN2xFZUx2aEVJbWhwcXJBamdCQytRS3M4bEErOGhLZWg2ak5jRkFNTEFMNmF0T2YrN3UzdnFQOFV2NStOL0RHb2ZIWDg4Q2hLMFBmTHhQZXFwbTVTdmhrMTZ2bnRlbTVoLzZMcFRydzhmV25JODIxR1hkZlllL3RUNFRscC9lY3pVcm9qc1J4SWdFSEpmQVdtRmpRZEtTbHZpMWlzcVZJbDJiMm1lWUZYVlBZbVZ4MEhXME5BZVo1OVFzNWZsazFDQXRaYWIycVppb3h4ZGhaWXlWSE5EbksrWXM5a294NC85a29RbUQ1eUQ0N3ViNHEzY09ETm1iZDFGcWVnaXZiZ1d6aklkZnhEa1JyaTN5d2srdXIwbjBpYU9PRzFKaWVuandYSkxWTlQwNzFVRTdWMFZxLzdYM0VPREZxOFFlSnl3aXp2MmhOd3U5ZXV2WnZIME1XWjRJYjV1T2w4VHNUVzhoNFJVWit2aUJVN3NJWWdwNFdvMUhDekxWN0hzSTNIVlhsaEdPOWNqdmh5MjBmRDY0OGZybXRrVFZuWHU2NHRpRXJvY210emRKR2JFUk9TUTI2cXFsYVROcXZ4dU5zeDJmdFZGVUdxcDFLb0xJeXdDOU5sUllkZHpIQlE0VldCYk4xa1JYUXBScHFQS2x4dGJESjBEdDFxUkducEdhRlJ5NXBwQmhuWkVOU1d4WkpOQnE1c3BzQ280c3huOUhOS0RJV01Ib1l2WXkrOWJqcHA3ZGJ4dHgwMkZabWQ2bGRNWEhaa2t2TVdGdUVaYXkwRkZMTVF2NkhrekFyQjk0RzZYZFAvMEFQNVFDeGpjeVF3ZGczYXZFQmpac2Jwdk1OUDEzV2ZMdHVma1dVZy80Z05YK2paa2Y0UjY1emRtREQrbFhMRmEyYjZtSFY1SXBydkNubjN3TU5keXI4ajBVeGI1NlFvV0JUa2FVd2ZQSmVENnVKaUo3VVRLazExYlhZVVl2aU1SeFBjclV3bkRTd3FlcWFWS2ZKaTVGY2F6R3h3WnZBQXdHT0pJMjZyRVpWWitaUzJyYjAzQkNvTWQxSU9ScmEydEZseGRINlZLMlhsMGNlaGh2bWcwaHJzZWNTUVRHVENYNGx4WXhMSjdFSms2anlLMjBpbWd4bm5GRlNmekhjQjl1NEltcVFSRTYzdlliZVhjRWQ5NVBHSk04T1dtS1c5ZHY4SHpqU2pxaUdDZ0FBIn0= -->
-<div data-pagedtable="false">
-<script data-pagedtable-source type="application/json">
-{"columns":[{"label":["Created_Date"],"name":[1],"type":["S3: POSIXct"],"align":["right"]},{"label":["Discount_Type"],"name":[2],"type":["S3: integer64"],"align":["right"]},{"label":["Discount_Value"],"name":[3],"type":["dbl"],"align":["right"]},{"label":["Duration_End"],"name":[4],"type":["S3: POSIXct"],"align":["right"]},{"label":["Duration_Start"],"name":[5],"type":["S3: POSIXct"],"align":["right"]},{"label":["End_Date"],"name":[6],"type":["S3: POSIXct"],"align":["right"]},{"label":["Modified_Date"],"name":[7],"type":["S3: POSIXct"],"align":["right"]},{"label":["Promotion_Category"],"name":[8],"type":["S3: integer64"],"align":["right"]},{"label":["Promotion_Code"],"name":[9],"type":["chr"],"align":["left"]},{"label":["Promotion_Id"],"name":[10],"type":["S3: integer64"],"align":["right"]},{"label":["Promotion_Name"],"name":[11],"type":["chr"],"align":["left"]},{"label":["Start_Date"],"name":[12],"type":["S3: POSIXct"],"align":["right"]},{"label":["Status"],"name":[13],"type":["S3: integer64"],"align":["right"]},{"label":["etl_batch_id"],"name":[14],"type":["chr"],"align":["left"]},{"label":["etl_datekey"],"name":[15],"type":["S3: integer64"],"align":["right"]}],"data":[{"1":"2010-03-09 15:48:44","2":"-1","3":"0","4":"2010-06-17 23:59:59","5":"2010-06-17","6":"2010-03-31 15:44:25","7":"2010-06-17 10:38:58","8":"1","9":"March_Joining_Bill","10":"1","11":"March Joining","12":"2010-03-08 15:44:25","13":"2","14":"NA","15":"NA"},{"1":"2010-03-09 15:56:16","2":"-1","3":"0","4":"2010-03-09 23:59:59","5":"2010-03-09","6":"2010-03-31 15:51:14","7":"2010-03-09 17:29:50","8":"1","9":"March_1023","10":"2","11":"March Soap","12":"2010-03-09 15:51:14","13":"2","14":"NA","15":"NA"},{"1":"2010-03-09 16:19:59","2":"-1","3":"0","4":"2010-03-09 23:59:59","5":"2010-03-09","6":"2010-03-31 15:58:12","7":"2010-03-09 17:29:58","8":"1","9":"March_2002","10":"3","11":"Zeta Tea","12":"2010-03-09 15:58:12","13":"2","14":"NA","15":"NA"},{"1":"2010-03-09 17:32:42","2":"-1","3":"0","4":"2010-06-17 23:59:59","5":"2010-06-17","6":"2010-03-23 17:30:48","7":"2010-06-17 10:39:04","8":"1","9":"MarchSoap","10":"4","11":"March_Soap","12":"2010-03-09 17:30:48","13":"2","14":"NA","15":"NA"},{"1":"2010-03-09 17:34:04","2":"-1","3":"0","4":"2010-06-17 23:59:59","5":"2010-06-17","6":"2010-03-23 17:33:27","7":"2010-06-17 10:39:10","8":"1","9":"MarchTea","10":"5","11":"March_Tea","12":"2010-03-09 17:33:27","13":"2","14":"NA","15":"NA"},{"1":"2010-03-09 17:35:48","2":"-1","3":"0","4":"2010-06-17 23:59:59","5":"2010-06-17","6":"2010-03-23 17:34:53","7":"2010-06-17 10:39:17","8":"1","9":"MarchSpiriluna","10":"6","11":"March_Spiriluna","12":"2010-03-09 17:34:53","13":"2","14":"NA","15":"NA"},{"1":"2010-05-21 17:34:45","2":"-1","3":"0","4":"2010-06-17 23:59:59","5":"2010-06-17","6":"2010-06-06 17:33:20","7":"2010-06-17 10:38:30","8":"1","9":"Promo_May_Re","10":"7","11":"Promo_May_Re","12":"2010-05-21 17:33:20","13":"2","14":"NA","15":"NA"},{"1":"2010-05-21 18:35:22","2":"-1","3":"0","4":"2010-06-17 23:59:59","5":"2010-06-17","6":"2010-06-06 18:33:49","7":"2010-06-17 10:38:20","8":"1","9":"Promo_May_Join","10":"8","11":"Promo_May_Join","12":"2010-05-21 18:33:49","13":"2","14":"NA","15":"NA"},{"1":"2010-06-14 17:17:38","2":"-1","3":"0","4":"2010-06-14 23:59:59","5":"2010-06-14","6":"2010-07-07 17:19:32","7":"2010-06-14 17:17:38","8":"1","9":"Promo_Jun_Re","10":"9","11":"Promo_Jun_Re","12":"2010-06-08 17:19:32","13":"1","14":"NA","15":"NA"},{"1":"2010-06-14 17:19:25","2":"-1","3":"0","4":"2010-06-14 23:59:59","5":"2010-06-14","6":"2010-07-07 17:21:57","7":"2010-06-14 17:19:25","8":"1","9":"Promo_Jun_Join","10":"10","11":"Promo_Jun_Join","12":"2010-06-08 17:21:57","13":"1","14":"NA","15":"NA"}],"options":{"columns":{"min":{},"max":[10],"total":{}},"rows":{"min":[10],"max":[10],"total":{}},"pages":{}}}
-  </script>
-</div>
-<!-- rnb-frame-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgc3FsXG5cbnNlbGVjdFxuICB0b3AgMjBcbiAgaW0uRGlzcGxheUNhdGVnb3J5TmFtZSwgXG4gIENvdW50KGRpc3RpbmN0IGNpZGQuUHJvbW90aW9uSWQpIGFzIGNvdW50c1xuRlJPTSBcbiAgW0NJRGV0YWlsRGlzY291bnRdIGNpZGQgd2l0aChub2xvY2spXG5JTk5FUiBKT0lOIFxuICBbQ0lIZWFkZXJdIGFzIGNpaCBcbiAgb24gXG4gIGNpaC5JbnZvaWNlTm8gPSBjaWRkLkludm9pY2VOb1xuSU5ORVIgSk9JTiBcbiAgW0NJRGV0YWlsXSBhcyBjaWQgXG4gIG9uXG4gIGNpZC5JbnZvaWNlTm8gPSBjaWguSW52b2ljZU5vXG5JTk5FUiBKT0lOIFxuICBQcm9tb3Rpb25fTWFzdGVyIHBtIHdpdGggKG5vbG9jaykgXG4gIG9uIFxuICBjaWRkLlByb21vdGlvbklkID0gY2FzdChwbS5Qcm9tb3Rpb25JZCBhcyB2YXJjaGFyKDEwKSApXG5Jbm5lciBKb2luIFxuICBJdGVtX21hc3Rlcihub2xvY2spIGltXG4gIG9uIFxuICBpbS5pdGVtaWQgPSBjaWQuaXRlbWlkXG4gIGFuZCBcbiAgY2lkZC5Qcm9tb3Rpb25JZCAhPSdudWxsJ1xud2hlcmUgXG4gIGlzcHJvbW89MSBcbiAgYW5kXG4gIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA+PSAnMjAyMC0wMy0wMSdcbiAgYW5kIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA8ICcyMDIwLTAzLTEyJ1xuR3JvdXAgYnkgXG4gIGltLkRpc3BsYXlDYXRlZ29yeU5hbWVcbm9yZGVyIGJ5XG4gIGNvdW50cyBkZXNjO1xuXG5gYGAifQ== -->
+<pre class="sql"><code>
+select
+  top 20
+  im.DisplayCategoryName, 
+  Count(distinct cidd.PromotionId) as counts
+FROM 
+  [CIDetailDiscount] cidd with(nolock)
+INNER JOIN 
+  [CIHeader] as cih 
+  on 
+  cih.InvoiceNo = cidd.InvoiceNo
+INNER JOIN 
+  [CIDetail] as cid 
+  on
+  cid.InvoiceNo = cih.InvoiceNo
+INNER JOIN 
+  Promotion_Master pm with (nolock) 
+  on 
+  cidd.PromotionId = cast(pm.PromotionId as varchar(10) )
+Inner Join 
+  Item_master(nolock) im
+  on 
+  im.itemid = cid.itemid
+  and 
+  cidd.PromotionId !=&#39;null&#39;
+where 
+  ispromo=1 
+  and
+  convert(varchar, cih.[InvoiceDate], 23) &gt;= &#39;2020-03-01&#39;
+  and convert(varchar, cih.[InvoiceDate], 23) &lt; &#39;2020-03-12&#39;
+Group by 
+  im.DisplayCategoryName
+order by
+  counts desc;
+</code></pre>
+<!-- rnb-source-end -->
+<!-- rnb-chunk-end -->
+<!-- rnb-text-begin -->
+<!-- rnb-text-end -->
+<!-- rnb-chunk-begin -->
+<!-- rnb-source-begin eyJkYXRhIjoiYGBgclxuXG52ZXJ0aWNhICU+JSBcbiAgZGJMaXN0VGFibGVzKCkgXG5cblxuXG52ZXJ0aWNhICU+JSBcbiAgZGJMaXN0RmllbGRzKFwiZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2VcIilcbiAgXG52ZXJ0aWNhICU+JSBcbiAgdGJsKFwiZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2VcIikgJT4lIFxuICBmaWx0ZXIoIERhdGVLZXkgPj0gMjAxOTA5MTIgKSAlPiUgXG4gIGdyb3VwX2J5KFByb2R1Y3RfQ2F0ZWdvcnlOYW1lKSAlPiVcbiAgc3VtbWFyaXNlKGNvdW50cyA9IG5fZGlzdGluY3QoUHJvZHVjdF9DYXRlZ29yeUlkKSkgJT4lIFxuICBhcnJhbmdlKGRlc2MoY291bnRzKSlcbiAgIyBzZWxlY3QoRGF0ZUtleSlcblxuYGBgIn0= -->
+<pre class="r"><code>
+vertica %&gt;% 
+  dbListTables() 
+
+
+
+vertica %&gt;% 
+  dbListFields(&quot;fact_promotions_vestige&quot;)
+  
+vertica %&gt;% 
+  tbl(&quot;fact_promotions_vestige&quot;) %&gt;% 
+  filter( DateKey &gt;= 20190912 ) %&gt;% 
+  group_by(Product_CategoryName) %&gt;%
+  summarise(counts = n_distinct(Product_CategoryId)) %&gt;% 
+  arrange(desc(counts))
+  # select(DateKey)
+</code></pre>
+<!-- rnb-source-end -->
 <!-- rnb-chunk-end -->
 <!-- rnb-text-begin -->
 <!-- rnb-text-end -->
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGEgTWF0Y2giDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KYGBge3Igc2V0dXB9DQpzcWxzZXJ2ZXIgPC0gZGJDb25uZWN0KG9kYmM6Om9kYmMoKSwNCiAgICAgICAgICAgICAgICAgICAgICAgZHNuID0gInZlc3RpZ2Vfc3Fsc2VydmVyIiwNCiAgICAgICAgICAgICAgICAgICAgICAgdWlkID0gImRldnJlYWRvbmx5dXNlciIsDQogICAgICAgICAgICAgICAgICAgICAgIHB3ZCA9ICJEM15VJEVyIikNCg0KIyBkYkxpc3RUYWJsZXMoc3Fsc2VydmVyKQ0KIyBkYkRpc2Nvbm5lY3Qoc3Fsc2VydmVyKQ0KDQp2ZXJ0aWNhIDwtIGRiQ29ubmVjdChvZGJjOjpvZGJjKCksDQogICAgICAgICAgICAgICAgICAgICBkc24gPSAidmVzdGlnZV92ZXJ0aWNhIiwNCiAgICAgICAgICAgICAgICAgICAgIHVpZCA9ICJkYmFkbWluIiwNCiAgICAgICAgICAgICAgICAgICAgIHB3ZCA9ICJkYXRhMTIzIikNCg0KIyBkYkxpc3RUYWJsZXModmVydGljYSkNCiMgZGJEaXNjb25uZWN0KHZlcnRpY2EpDQoNCg0KYGBgDQoNCg0KYGBge3NxbCBzcWxzZXJ2ZXIsIGNvbm5lY3Rpb249c3Fsc2VydmVyfQ0KDQpzZWxlY3QgDQogIHRvcCAxMCANCiAgKiANCmZyb20NCiAgQ0lIZWFkZXINCg0KYGBgDQoNCmBgYHtzcWwgdmVydGljYSwgY29ubmVjdGlvbj12ZXJ0aWNhfQ0KDQpzZWxlY3QNCiAgKiANCmZyb20gDQogIGRpbV9wcm9tb3Rpb25zX3Zlc3RpZ2UgDQpsaW1pdCAxMA0KDQpgYGANCg0K</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIkRhdGEgTWF0Y2giDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQpgYGB7ciBzZXR1cH0NCg0KIyBsb2FkIGxpYnJhcmllcyAtLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCmxpYnJhcnkoImRhdGEudGFibGUiKQ0KbGlicmFyeSgiZHBseXIiKQ0KbGlicmFyeSgibWFncml0dHIiKQ0KbGlicmFyeSgiREJJIikNCmxpYnJhcnkoIm9kYmMiKQ0KbGlicmFyeSgic3RyaW5naSIpDQpsaWJyYXJ5KCJyZWFkciIpDQpsaWJyYXJ5KCJnZ3Bsb3QyIikNCmxpYnJhcnkoInBsb3RsdWNrIikNCg0KIyBzZXQgZGVmYXVsdHMgLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQoNCnNldERUdGhyZWFkcygwTCkNCnRoZW1lX3NldCh0aGVtZV9idygpKQ0KDQojIHNldHVwIENvbm5lY3Rpb25zIC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCg0Kc3Fsc2VydmVyIDwtIGRiQ29ubmVjdChvZGJjOjpvZGJjKCksDQogICAgICAgICAgICAgICAgICAgICAgIGRzbiA9ICJ2ZXN0aWdlX3NxbHNlcnZlciIsDQogICAgICAgICAgICAgICAgICAgICAgIHVpZCA9ICJkZXZyZWFkb25seXVzZXIiLA0KICAgICAgICAgICAgICAgICAgICAgICBwd2QgPSAiRDNeVSRFciIpDQoNCiMgZGJMaXN0VGFibGVzKHNxbHNlcnZlcikNCiMgZGJEaXNjb25uZWN0KHNxbHNlcnZlcikNCg0KdmVydGljYSA8LSBkYkNvbm5lY3Qob2RiYzo6b2RiYygpLA0KICAgICAgICAgICAgICAgICAgICAgZHNuID0gInZlc3RpZ2VfdmVydGljYSIsDQogICAgICAgICAgICAgICAgICAgICB1aWQgPSAiZGJhZG1pbiIsDQogICAgICAgICAgICAgICAgICAgICBwd2QgPSAiZGF0YTEyMyIpDQoNCiMgZGJMaXN0VGFibGVzKHZlcnRpY2EpDQojIGRiRGlzY29ubmVjdCh2ZXJ0aWNhKQ0KDQpgYGANCg0KYGBge3NxbCB2ZXJ0aWNhX2dyYXBoNiwgY29ubmVjdGlvbj12ZXJ0aWNhfQ0KLS0gZ3JhcGggNg0KDQpzZWxlY3QNCglpZm51bGwoQnJhbmROYW1lICwnT3RoZXJzJykgYXMgQnJhbmQsDQoJc3VtKERpc2NvdW50ICpRdWFudGl0eSkgYXMgQW1vdW50DQpmcm9tICANCglmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwDQp3aGVyZSANCglEYXRlS2V5IGJldHdlZW4gMjAxOTA5MTIgYW5kIDIwMjAwMzExDQoJYW5kIHAuQ291bnRyeUlkID0xDQpncm91cCBieSANCglCcmFuZCANCm9yZGVyIGJ5IA0KCUFtb3VudCBkZXNjOw0KYGBgDQoNCmBgYHtzcWwgdmVydGljYV9ncmFwaDUsIGNvbm5lY3Rpb249dmVydGljYX0NCi0tIGdyYXBoIDUNCg0Kc2VsZWN0DQoJaWZudWxsKFN1YkNhdGVnb3J5TmFtZSAsJ090aGVycycpIGFzIFN1Yl9DYXRlZ29yeSwNCglzdW0oRGlzY291bnQqUXVhbnRpdHkgKSBhcyBBbW91bnQNCmZyb20gIA0KCWZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHANCndoZXJlIA0KCURhdGVLZXkgYmV0d2VlbiAyMDE5MDkxMiBhbmQgMjAyMDAzMTENCglhbmQgDQoJcC5Db3VudHJ5SWQgPTENCmdyb3VwIGJ5DQoJU3ViX0NhdGVnb3J5IA0Kb3JkZXIgYnkgDQoJQW1vdW50IGRlc2MNCmxpbWl0IDEwOw0KYGBgDQoNCmBgYHtzcWwgdmVydGljYV9ncmFwaDQsIGNvbm5lY3Rpb249dmVydGljYX0NCi0tIGdyYXBoIDQNCg0Kc2VsZWN0DQoJaWZudWxsKFByb2R1Y3RfQ2F0ZWdvcnlOYW1lICwnT3RoZXJzJykgYXMgQ2F0ZWdvcnksDQoJc3VtKERpc2NvdW50ICogUXVhbnRpdHkgKSBhcyBBbW91bnQNCmZyb20gDQoJZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcA0Kd2hlcmUgDQoJRGF0ZUtleSBiZXR3ZWVuIDIwMTkwOTEyIGFuZCAyMDIwMDMxMQ0KCWFuZCANCglwLkNvdW50cnlJZCA9MQ0KZ3JvdXAgYnkgDQoJUHJvZHVjdF9DYXRlZ29yeU5hbWUNCm9yZGVyIGJ5IA0KCUFtb3VudCBkZXNjOw0KYGBgDQoNCmBgYHtzcWwgdmVydGljYV9ncmFwaDMsIGNvbm5lY3Rpb249dmVydGljYX0NCi0tIGdyYXBoIDMNCi8qDQpzZWxlY3QNCglpZm51bGwoSXRlbU5hbWUgLCdPdGhlcnMnKSBhcyBQcm9kdWN0LA0KCXN1bShEaXNjb3VudCpRdWFudGl0eSApIGFzIEFtb3VudA0KZnJvbSAgDQoJZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcA0Kd2hlcmUgDQoJRGF0ZUtleSBiZXR3ZWVuIDIwMjAwMzAxIGFuZCAyMDIwMDMxMg0KCWFuZCANCglwLkNvdW50cnlJZCA9MQ0KZ3JvdXAgYnkgDQoJSXRlbU5hbWUgDQpvcmRlciBieSANCglBbW91bnQgZGVzYw0KbGltaXQNCiAgMjA7DQoqLw0KDQpzZWxlY3QNCglJdGVtX0lkIGFzIFByb2R1Y3QsDQoJc3VtKERpc2NvdW50KlF1YW50aXR5ICkgYXMgQW1vdW50DQpmcm9tICANCglmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSBwDQp3aGVyZSANCglEYXRlS2V5IGJldHdlZW4gMjAyMDAzMDEgYW5kIDIwMjAwMzEyDQoJYW5kIA0KCXAuQ291bnRyeUlkID0xDQpncm91cCBieSANCglJdGVtX0lkIA0Kb3JkZXIgYnkgDQoJQW1vdW50IGRlc2MNCmxpbWl0DQogIDIwOw0KDQpgYGANCg0KYGBge3NxbCBTcWxTZXJ2ZXJfZ3JhcGgzLCBjb25uZWN0aW9uPXNxbHNlcnZlcn0NCg0Kc2VsZWN0IA0KICB0b3AgMjANCiAgaW0uRGlzcGxheUNhdGVnb3J5TmFtZSwgDQogIENvdW50KGRpc3RpbmN0IGNpZGQuUHJvbW90aW9uSWQpIGFzIGNvdW50cw0KRlJPTSANCiAgW0NJRGV0YWlsRGlzY291bnRdIGNpZGQgd2l0aChub2xvY2spDQpJTk5FUiBKT0lOIA0KICBbQ0lIZWFkZXJdIGFzIGNpaCANCiAgb24gDQogIGNpaC5JbnZvaWNlTm8gPSBjaWRkLkludm9pY2VObw0KSU5ORVIgSk9JTiANCiAgW0NJRGV0YWlsXSBhcyBjaWQgDQogIG9uDQogIGNpZC5JbnZvaWNlTm8gPSBjaWguSW52b2ljZU5vDQpJTk5FUiBKT0lOIA0KICBQcm9tb3Rpb25fTWFzdGVyIHBtIHdpdGggKG5vbG9jaykgDQogIG9uIA0KICBjaWRkLlByb21vdGlvbklkID0gY2FzdChwbS5Qcm9tb3Rpb25JZCBhcyB2YXJjaGFyKDEwKSApDQpJbm5lciBKb2luIA0KICBJdGVtX21hc3Rlcihub2xvY2spIGltDQogIG9uIA0KICBpbS5pdGVtaWQgPSBjaWQuaXRlbWlkDQogIGFuZCANCiAgY2lkZC5Qcm9tb3Rpb25JZCAhPSdudWxsJw0Kd2hlcmUgDQogIGlzcHJvbW89MSANCiAgYW5kDQogIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA+PSAnMjAyMC0wMy0wMScNCiAgYW5kIGNvbnZlcnQodmFyY2hhciwgY2loLltJbnZvaWNlRGF0ZV0sIDIzKSA8ICcyMDIwLTAzLTEyJw0KR3JvdXAgYnkgDQogIGltLkRpc3BsYXlDYXRlZ29yeU5hbWUNCm9yZGVyIGJ5DQogIGNvdW50cyBkZXNjOw0KICANCmBgYA0KDQpgYGB7c3FsIHZlcnRpY2FfZ3JhcGgyLCBjb25uZWN0aW9uPXZlcnRpY2F9DQotLSBncmFwaCAyDQoNCnNlbGVjdA0KCUFnZUJ1Y2tldCAgYXMgQWdlQnVja2V0LA0KCWNvdW50KERJU1RJTkNUICBQcm9tb3Rpb25fSWQgKSBhcyBub09mUHJvbW90aW9ucw0KZnJvbSAgDQoJZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UgcA0Kd2hlcmUgDQoJRGF0ZUtleSBiZXR3ZWVuIDIwMTkwOTEyIGFuZCAyMDIwMDMxMQ0KCWFuZCANCglwLkNvdW50cnlJZCA9IDENCmdyb3VwIGJ5IA0KCUFnZUJ1Y2tldCANCm9yZGVyIGJ5IA0KCW5vT2ZQcm9tb3Rpb25zIGRlc2M7DQoJDQpgYGANCg0KYGBge3NxbCB2ZXJ0aWNhX2dyYXBoMSwgY29ubmVjdGlvbj12ZXJ0aWNhfQ0Kc2VsZWN0DQoJaWZudWxsKFByb2R1Y3RfQ2F0ZWdvcnlOYW1lLCdPdGhlcnMnKSBhcyBDYXRlZ29yeSwNCgljb3VudChESVNUSU5DVCBQcm9tb3Rpb25fSWQgKSBhcyBQcm9tb3Rpb25fQ291bnQNCmZyb20gIA0KCWZhY3RfcHJvbW90aW9uc192ZXN0aWdlIHANCndoZXJlIA0KCURhdGVLZXkgYmV0d2VlbiAyMDIwMDMwMSBhbmQgMjAyMDAzMTENCglhbmQgDQoJcC5Db3VudHJ5SWQgPTENCmdyb3VwIGJ5DQoJQ2F0ZWdvcnkNCm9yZGVyIGJ5DQoJUHJvbW90aW9uX0NvdW50IGRlc2M7DQoNCmBgYA0KDQpgYGB7c3FsIFNxbFNlcnZlcl9ncmFwaDEsIGNvbm5lY3Rpb249c3Fsc2VydmVyfQ0KDQpzZWxlY3QNCiAgdG9wIDIwDQogIGltLkRpc3BsYXlDYXRlZ29yeU5hbWUsIA0KICBDb3VudChkaXN0aW5jdCBjaWRkLlByb21vdGlvbklkKSBhcyBjb3VudHMNCkZST00gDQogIFtDSURldGFpbERpc2NvdW50XSBjaWRkIHdpdGgobm9sb2NrKQ0KSU5ORVIgSk9JTiANCiAgW0NJSGVhZGVyXSBhcyBjaWggDQogIG9uIA0KICBjaWguSW52b2ljZU5vID0gY2lkZC5JbnZvaWNlTm8NCklOTkVSIEpPSU4gDQogIFtDSURldGFpbF0gYXMgY2lkIA0KICBvbg0KICBjaWQuSW52b2ljZU5vID0gY2loLkludm9pY2VObw0KSU5ORVIgSk9JTiANCiAgUHJvbW90aW9uX01hc3RlciBwbSB3aXRoIChub2xvY2spIA0KICBvbiANCiAgY2lkZC5Qcm9tb3Rpb25JZCA9IGNhc3QocG0uUHJvbW90aW9uSWQgYXMgdmFyY2hhcigxMCkgKQ0KSW5uZXIgSm9pbiANCiAgSXRlbV9tYXN0ZXIobm9sb2NrKSBpbQ0KICBvbiANCiAgaW0uaXRlbWlkID0gY2lkLml0ZW1pZA0KICBhbmQgDQogIGNpZGQuUHJvbW90aW9uSWQgIT0nbnVsbCcNCndoZXJlIA0KICBpc3Byb21vPTEgDQogIGFuZA0KICBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPj0gJzIwMjAtMDMtMDEnDQogIGFuZCBjb252ZXJ0KHZhcmNoYXIsIGNpaC5bSW52b2ljZURhdGVdLCAyMykgPCAnMjAyMC0wMy0xMicNCkdyb3VwIGJ5IA0KICBpbS5EaXNwbGF5Q2F0ZWdvcnlOYW1lDQpvcmRlciBieQ0KICBjb3VudHMgZGVzYzsNCg0KYGBgDQoNCmBgYHtyIGRwbHlyfQ0KDQp2ZXJ0aWNhICU+JSANCiAgZGJMaXN0VGFibGVzKCkgDQoNCg0KDQp2ZXJ0aWNhICU+JSANCiAgZGJMaXN0RmllbGRzKCJmYWN0X3Byb21vdGlvbnNfdmVzdGlnZSIpDQogIA0KdmVydGljYSAlPiUgDQogIHRibCgiZmFjdF9wcm9tb3Rpb25zX3Zlc3RpZ2UiKSAlPiUgDQogIGZpbHRlciggRGF0ZUtleSA+PSAyMDE5MDkxMiApICU+JSANCiAgZ3JvdXBfYnkoUHJvZHVjdF9DYXRlZ29yeU5hbWUpICU+JQ0KICBzdW1tYXJpc2UoY291bnRzID0gbl9kaXN0aW5jdChQcm9kdWN0X0NhdGVnb3J5SWQpKSAlPiUgDQogIGFycmFuZ2UoZGVzYyhjb3VudHMpKQ0KICAjIHNlbGVjdChEYXRlS2V5KQ0KDQpgYGANCg0K</div>
 
 
 

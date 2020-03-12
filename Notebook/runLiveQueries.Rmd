@@ -2,7 +2,28 @@
 title: "Data Match"
 output: html_notebook
 ---
+
 ```{r setup}
+
+# load libraries ----------------------------------------------------------
+
+library("data.table")
+library("dplyr")
+library("magrittr")
+library("DBI")
+library("odbc")
+library("stringi")
+library("readr")
+library("ggplot2")
+library("plotluck")
+
+# set defaults ------------------------------------------------------------
+
+setDTthreads(0L)
+theme_set(theme_bw())
+
+# setup Connections -------------------------------------------------------
+
 sqlserver <- dbConnect(odbc::odbc(),
                        dsn = "vestige_sqlserver",
                        uid = "devreadonlyuser",
@@ -19,27 +40,229 @@ vertica <- dbConnect(odbc::odbc(),
 # dbListTables(vertica)
 # dbDisconnect(vertica)
 
-
 ```
 
-
-```{sql sqlserver, connection=sqlserver}
-
-select 
-  top 10 
-  * 
-from
-  CIHeader
-
-```
-
-```{sql vertica, connection=vertica}
+```{sql vertica_graph6, connection=vertica}
+-- graph 6
 
 select
-  * 
+	ifnull(BrandName ,'Others') as Brand,
+	sum(Discount *Quantity) as Amount
+from  
+	fact_promotions_vestige p
+where 
+	DateKey between 20190912 and 20200311
+	and p.CountryId =1
+group by 
+	Brand 
+order by 
+	Amount desc;
+```
+
+```{sql vertica_graph5, connection=vertica}
+-- graph 5
+
+select
+	ifnull(SubCategoryName ,'Others') as Sub_Category,
+	sum(Discount*Quantity ) as Amount
+from  
+	fact_promotions_vestige p
+where 
+	DateKey between 20190912 and 20200311
+	and 
+	p.CountryId =1
+group by
+	Sub_Category 
+order by 
+	Amount desc
+limit 10;
+```
+
+```{sql vertica_graph4, connection=vertica}
+-- graph 4
+
+select
+	ifnull(Product_CategoryName ,'Others') as Category,
+	sum(Discount * Quantity ) as Amount
 from 
-  dim_promotions_vestige 
-limit 10
+	fact_promotions_vestige p
+where 
+	DateKey between 20190912 and 20200311
+	and 
+	p.CountryId =1
+group by 
+	Product_CategoryName
+order by 
+	Amount desc;
+```
+
+```{sql vertica_graph3, connection=vertica}
+-- graph 3
+/*
+select
+	ifnull(ItemName ,'Others') as Product,
+	sum(Discount*Quantity ) as Amount
+from  
+	fact_promotions_vestige p
+where 
+	DateKey between 20200301 and 20200312
+	and 
+	p.CountryId =1
+group by 
+	ItemName 
+order by 
+	Amount desc
+limit
+  20;
+*/
+
+select
+	Item_Id as Product,
+	sum(Discount*Quantity ) as Amount
+from  
+	fact_promotions_vestige p
+where 
+	DateKey between 20200301 and 20200312
+	and 
+	p.CountryId =1
+group by 
+	Item_Id 
+order by 
+	Amount desc
+limit
+  20;
+
+```
+
+```{sql SqlServer_graph3, connection=sqlserver}
+
+select 
+  top 20
+  im.DisplayCategoryName, 
+  Count(distinct cidd.PromotionId) as counts
+FROM 
+  [CIDetailDiscount] cidd with(nolock)
+INNER JOIN 
+  [CIHeader] as cih 
+  on 
+  cih.InvoiceNo = cidd.InvoiceNo
+INNER JOIN 
+  [CIDetail] as cid 
+  on
+  cid.InvoiceNo = cih.InvoiceNo
+INNER JOIN 
+  Promotion_Master pm with (nolock) 
+  on 
+  cidd.PromotionId = cast(pm.PromotionId as varchar(10) )
+Inner Join 
+  Item_master(nolock) im
+  on 
+  im.itemid = cid.itemid
+  and 
+  cidd.PromotionId !='null'
+where 
+  ispromo=1 
+  and
+  convert(varchar, cih.[InvoiceDate], 23) >= '2020-03-01'
+  and convert(varchar, cih.[InvoiceDate], 23) < '2020-03-12'
+Group by 
+  im.DisplayCategoryName
+order by
+  counts desc;
+  
+```
+
+```{sql vertica_graph2, connection=vertica}
+-- graph 2
+
+select
+	AgeBucket  as AgeBucket,
+	count(DISTINCT  Promotion_Id ) as noOfPromotions
+from  
+	fact_promotions_vestige p
+where 
+	DateKey between 20190912 and 20200311
+	and 
+	p.CountryId = 1
+group by 
+	AgeBucket 
+order by 
+	noOfPromotions desc;
+	
+```
+
+```{sql vertica_graph1, connection=vertica}
+select
+	ifnull(Product_CategoryName,'Others') as Category,
+	count(DISTINCT Promotion_Id ) as Promotion_Count
+from  
+	fact_promotions_vestige p
+where 
+	DateKey between 20200301 and 20200311
+	and 
+	p.CountryId =1
+group by
+	Category
+order by
+	Promotion_Count desc;
+
+```
+
+```{sql SqlServer_graph1, connection=sqlserver}
+
+select
+  top 20
+  im.DisplayCategoryName, 
+  Count(distinct cidd.PromotionId) as counts
+FROM 
+  [CIDetailDiscount] cidd with(nolock)
+INNER JOIN 
+  [CIHeader] as cih 
+  on 
+  cih.InvoiceNo = cidd.InvoiceNo
+INNER JOIN 
+  [CIDetail] as cid 
+  on
+  cid.InvoiceNo = cih.InvoiceNo
+INNER JOIN 
+  Promotion_Master pm with (nolock) 
+  on 
+  cidd.PromotionId = cast(pm.PromotionId as varchar(10) )
+Inner Join 
+  Item_master(nolock) im
+  on 
+  im.itemid = cid.itemid
+  and 
+  cidd.PromotionId !='null'
+where 
+  ispromo=1 
+  and
+  convert(varchar, cih.[InvoiceDate], 23) >= '2020-03-01'
+  and convert(varchar, cih.[InvoiceDate], 23) < '2020-03-12'
+Group by 
+  im.DisplayCategoryName
+order by
+  counts desc;
+
+```
+
+```{r dplyr}
+
+vertica %>% 
+  dbListTables() 
+
+
+
+vertica %>% 
+  dbListFields("fact_promotions_vestige")
+  
+vertica %>% 
+  tbl("fact_promotions_vestige") %>% 
+  filter( DateKey >= 20190912 ) %>% 
+  group_by(Product_CategoryName) %>%
+  summarise(counts = n_distinct(Product_CategoryId)) %>% 
+  arrange(desc(counts))
+  # select(DateKey)
 
 ```
 
